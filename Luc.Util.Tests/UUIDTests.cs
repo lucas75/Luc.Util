@@ -6,6 +6,9 @@ namespace Luc.Util.Tests;
 
 public class UUIDTests
 {
+    /// <summary>
+    /// Tests that a UUID can be created from valid 16 bytes and matches the input bytes.
+    /// </summary>
     [Fact]
     public void UUID_ValidBytes_ShouldCreateUUID()
     {
@@ -19,6 +22,9 @@ public class UUIDTests
         Assert.Equal(bytes, uuid.Bytes.ToArray());
     }
 
+    /// <summary>
+    /// Tests that creating a UUID with invalid byte length throws an ArgumentException.
+    /// </summary>
     [Fact]
     public void UUID_InvalidBytes_ShouldThrowArgumentException()
     {
@@ -26,6 +32,9 @@ public class UUIDTests
         Assert.Throws<ArgumentException>(() => new UUID(bytes));
     }
 
+    /// <summary>
+    /// Tests that the UUID string representation matches the expected format.
+    /// </summary>
     [Fact]
     public void UUID_ToString_ShouldReturnCorrectFormat()
     {
@@ -41,6 +50,9 @@ public class UUIDTests
         Assert.Equal(expected, uuid.ToString());
     }
 
+    /// <summary>
+    /// Tests that the Base36 encoding of a UUID returns a string of correct length.
+    /// </summary>
     [Fact]
     public void UUID_ToBase36_ShouldReturnCorrectFormat()
     {
@@ -56,6 +68,9 @@ public class UUIDTests
         Assert.Equal(25, base36.Length);
     }
 
+    /// <summary>
+    /// Tests that a UUID can be recreated from its Base36 string representation.
+    /// </summary>
     [Fact]
     public void UUID_FromBase36_ShouldRecreateUUID()
     {
@@ -72,6 +87,9 @@ public class UUIDTests
         Assert.Equal(uuid, recreatedUuid);
     }
 
+    /// <summary>
+    /// Tests that the Base25 encoding of a UUID returns a string of correct length.
+    /// </summary>
     [Fact]
     public void UUID_ToBase25_ShouldReturnCorrectFormat()
     {
@@ -87,6 +105,9 @@ public class UUIDTests
         Assert.Equal(28, base25.Length);
     }
 
+    /// <summary>
+    /// Tests that a UUID can be recreated from its Base25 string representation.
+    /// </summary>
     [Fact]
     public void UUID_FromBase25_ShouldRecreateUUID()
     {
@@ -103,6 +124,9 @@ public class UUIDTests
         Assert.Equal(uuid, recreatedUuid);
     }
 
+    /// <summary>
+    /// Tests equality and inequality operators for UUIDs.
+    /// </summary>
     [Fact]
     public void UUID_Equality_ShouldWorkCorrectly()
     {
@@ -117,6 +141,9 @@ public class UUIDTests
         Assert.False(uuid1 != uuid2);
     }
 
+    /// <summary>
+    /// Tests the comparison logic between two UUIDs.
+    /// </summary>
     [Fact]
     public void UUID_Comparison_ShouldWorkCorrectly()
     {
@@ -135,6 +162,9 @@ public class UUIDTests
         Assert.Equal(comparison > 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) > 0);
     }
 
+    /// <summary>
+    /// Tests that a newly generated UUIDv4 has correct version and variant bits.
+    /// </summary>
     [Fact]
     public void UUID_NewV4_ShouldCreateValidV4()
     {
@@ -147,6 +177,9 @@ public class UUIDTests
         Assert.Equal(0x80, bytes[8] & 0xC0);
     }
 
+    /// <summary>
+    /// Tests that GetVersion returns the correct version for various UUIDs.
+    /// </summary>
     [Fact]
     public void UUID_GetVersion_ShouldReturnCorrectValue()
     {
@@ -164,6 +197,9 @@ public class UUIDTests
         Assert.Equal(1, uuidV1.GetVersion());
     }
 
+    /// <summary>
+    /// Tests that GetVariant returns the correct variant for various UUIDs.
+    /// </summary>
     [Fact]
     public void UUID_GetVersionVariant_ShouldReturnEnum()
     {
@@ -182,6 +218,9 @@ public class UUIDTests
         Assert.Equal(UUID.UuidVariant.Microsoft, custom.GetVariant());
     }
 
+    /// <summary>
+    /// Tests that a newly generated UUIDv7 has correct version and variant bits.
+    /// </summary>
     [Fact]
     public void UUID_NewV7_ShouldCreateValidV7()
     {
@@ -194,6 +233,9 @@ public class UUIDTests
         Assert.Equal(0x80, bytes[8] & 0xC0);
     }
 
+    /// <summary>
+    /// Tests that the timestamp extracted from a UUIDv7 is within the expected range.
+    /// </summary>
     [Fact]
     public void UUID_V7GetTimestamp_ShouldReturnValidTimestamp()
     {
@@ -207,6 +249,9 @@ public class UUIDTests
         Assert.True(timestamp <= after.AddMilliseconds(1));
     }
 
+    /// <summary>
+    /// Tests round-trip conversion of UUIDv7 samples to Base36 and back.
+    /// </summary>
     [Fact]
     public void Uuid7Samples_ToBase36_And_FromBase36_ShouldRoundTrip()
     {
@@ -220,6 +265,9 @@ public class UUIDTests
         }
     }
 
+    /// <summary>
+    /// Tests round-trip conversion of UUIDv7 samples to Base25 and back.
+    /// </summary>
     [Fact]
     public void Uuid7Samples_ToBase25_And_FromBase25_ShouldRoundTrip()
     {
