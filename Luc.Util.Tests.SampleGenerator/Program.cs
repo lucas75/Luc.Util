@@ -25,9 +25,9 @@ for (int i = 0; i < 100; i++)
                 UUID = "{{uuid}}", 
                 TS1 = DateTime.Parse("{{ts1:O}}"), 
                 TS2 = DateTime.Parse("{{ts2:O}}"),
-                Id25 = "{{uuid.ToId25String()}}",
-                Id26 = "{{uuid.ToId26String()}}",
-                Id22 = "{{uuid.ToId22String()}}",
+                MedoId25 = "{{uuid.ToId25String()}}",
+                MedoId26 = "{{uuid.ToId26String()}}",
+                MedoId22 = "{{uuid.ToId22String()}}",
             },
       """);
 }
@@ -52,9 +52,9 @@ System.IO.File.WriteAllText
     public record UuidRecord
     {
         public required string UUID { get; init; }
-        public required string Id25 { get; init; }
-        public required string Id26 { get; init; }
-        public required string Id22 { get; init; }
+        public required string MedoId25 { get; init; }
+        public required string MedoId26 { get; init; }
+        public required string MedoId22 { get; init; }
         public required DateTime TS1 { get; init; }
         public required DateTime TS2 { get; init; }
     }
