@@ -469,10 +469,35 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   }
 
   /// <summary>
-  /// Extracts the timestamp from a UUIDv7 instance.
+  /// Extracts the timestamp component from a UUIDv7 instance.
   /// </summary>
-  /// <returns>The timestamp as a <see cref="DateTimeOffset"/>.</returns>
+  /// <returns>
+  /// A <see cref="DateTimeOffset"/> representing the Unix epoch time truncated to millisecond precision.
+  /// </returns>
   /// <exception cref="ArgumentException">Thrown if the UUID is not version 7.</exception>
+  /// <remarks>
+  /// <para>
+  /// UUIDv7 stores a 48-bit big-endian Unix timestamp measured in whole milliseconds (per RFC 9562). This yields a
+  /// fixed resolution of 1 ms; sub-millisecond (microsecond / nanosecond) information from the original event time
+  /// is intentionally discarded and cannot be recovered. If the UUID was generated from a higher precision clock,
+  /// the value here will be the floor/truncated millisecond of that source.
+  /// </para>
+  /// <para>
+  /// <b>Quantification:</b> Maximum representable instant range is about 8.9e13 ms (&gt; 2.8 million years). Comparison of
+  /// two timestamps that occurred within the same millisecond will return equality even if the true source times differ
+  /// at microsecond or nanosecond level. When validating against external reference data (e.g. test samples containing
+  /// high-resolution bounds like TS1/TS2), allow a tolerance of ±1 ms rather than expecting exact sub-millisecond matches.
+  /// </para>
+  /// <para>
+  /// <b>Ordering &amp; Collisions:</b> Millisecond granularity means multiple UUIDv7 values created inside the same ms rely
+  /// on the remaining sequence/random bits for strict ordering and uniqueness. Do not use the extracted timestamp alone
+  /// for deduplicating high-frequency events; combine it with the full UUID or additional sequence metadata.
+  /// </para>
+  /// <para>
+  /// <b>Warning:</b> Do not rely on <see cref="V7GetTimestamp"/> for audit trails requiring sub-millisecond precision.
+  /// If you need higher resolution, persist the original high-precision timestamp separately alongside the UUID.
+  /// </para>
+  /// </remarks>
   public DateTimeOffset V7GetTimestamp()
   {
     ReadOnlySpan<byte> bytes = Bytes;
