@@ -7,7 +7,7 @@ records (with multiple encodings and timestamps) that the unit tests use.
 
 How it works
 ------------
-- It another Uuid7 library to generate the samples.
+- It uses the library's `Uuid7` implementation to generate the samples.
 - Runs `Uuid7.NewUuid7()` 100 times.
 - Captures two timestamps around each generation (`TS1` and `TS2`).
 - Stores the raw UUID and its `Id25`, `Id26`, and `Id22` string representations.
@@ -27,8 +27,8 @@ cd /home/lucas/Dev/Luc.Util   # or your local clone root
 dotnet run --project Luc.Util.Tests.SampleGenerator/Luc.Util.Tests.SampleGenerator.csproj
 ```
 
-If the project cannot find `Luc.Util.Tests/Luc.Util.Tests.csproj`, it will throw an
-exception indicating that it must be executed from the solution root.
+If the project cannot find `Luc.Util.Tests/Luc.Util.Tests.csproj` it will throw an
+exception; be sure to run it from the solution root.
 
 When to run it
 --------------
