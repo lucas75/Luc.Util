@@ -1,4 +1,5 @@
 using System;
+using Luc.Util.Tests.Generated;
 using Xunit;
 
 namespace Luc.Util.Tests;
@@ -27,11 +28,11 @@ public class UUIDTests
     [Fact]
     public void ToString_ShouldReturnCorrectFormat()
     {
-        byte[] bytes = new byte[16]
-        {
+        byte[] bytes =
+        [
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF,
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF
-        };
+        ];
 
         var uuid = new UUID(bytes);
         string expected = "12345678-90ab-cdef-1234-567890abcdef";
@@ -42,11 +43,11 @@ public class UUIDTests
     [Fact]
     public void ToBase36_ShouldReturnCorrectFormat()
     {
-        byte[] bytes = new byte[16]
-        {
+        byte[] bytes =
+        [
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF,
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF
-        };
+        ];
 
         var uuid = new UUID(bytes);
         string base36 = uuid.ToBase36();
@@ -57,11 +58,11 @@ public class UUIDTests
     [Fact]
     public void FromBase36_ShouldRecreateUUID()
     {
-        byte[] bytes = new byte[16]
-        {
+        byte[] bytes =
+        [
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF,
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF
-        };
+        ];
 
         var uuid = new UUID(bytes);
         string base36 = uuid.ToBase36();
@@ -73,11 +74,11 @@ public class UUIDTests
     [Fact]
     public void ToBase25_ShouldReturnCorrectFormat()
     {
-        byte[] bytes = new byte[16]
-        {
+        byte[] bytes =
+        [
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF,
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF
-        };
+        ];
 
         var uuid = new UUID(bytes);
         string base25 = uuid.ToBase25();
@@ -88,11 +89,11 @@ public class UUIDTests
     [Fact]
     public void FromBase25_ShouldRecreateUUID()
     {
-        byte[] bytes = new byte[16]
-        {
+        byte[] bytes =
+        [
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF,
             0x12, 0x34, 0x56, 0x78, 0x90, 0xAB, 0xCD, 0xEF
-        };
+        ];
 
         var uuid = new UUID(bytes);
         string base25 = uuid.ToBase25();
@@ -130,5 +131,45 @@ public class UUIDTests
 
         Assert.Equal(comparison < 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) < 0);
         Assert.Equal(comparison > 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) > 0);
+    }
+
+    [Fact]
+    public void Uuid7Samples_ToBase36_And_FromBase36_ShouldRoundTrip()
+    {
+        foreach (var sample in Uuid7TestSamples.Uuids)
+        {
+            var guid = Guid.Parse(sample.UUID);
+
+            if (!guid.AsUUIDv7(out var uuid7))
+                continue;
+
+            var uuid = new UUID(uuid7.Bytes);
+            var base36 = uuid.ToBase36();
+
+            Assert.Equal(25, base36.Length);
+
+            var recreated = UUID.FromBase36(base36);
+            Assert.Equal(uuid, recreated);
+        }
+    }
+
+    [Fact]
+    public void Uuid7Samples_ToBase25_And_FromBase25_ShouldRoundTrip()
+    {
+        foreach (var sample in Uuid7TestSamples.Uuids)
+        {
+            var guid = Guid.Parse(sample.UUID);
+
+            if (!guid.AsUUIDv7(out var uuid7))
+                continue;
+
+            var uuid = new UUID(uuid7.Bytes);
+            var base25 = uuid.ToBase25();
+
+            Assert.Equal(28, base25.Length);
+
+            var recreated = UUID.FromBase25(base25);
+            Assert.Equal(uuid, recreated);
+        }
     }
 }
