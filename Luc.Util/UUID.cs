@@ -116,7 +116,45 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   }
 
   private const string base36Digits = "0123456789abcdefghijklmnopqrstuvwxyz";
-  private const string base25Digits = "23456789abcdefghjkmnpqrstuvwxyz";
+  private const string base31Digits = "23456789abcdefghjkmnpqrstuvwxyz";
+  private const string base32Digits = "0123456789bcdefghjkmnpqrstuvwxyz";
+  private const string base35Digits = "0123456789abcdefghijkmnopqrstuvwxyz"; // excludes 'l' = 35 chars
+  
+  /// <summary>
+  /// Encodes the UUID as a 22-character Base64 string (URL-safe, no padding).
+  /// </summary>
+  /// <returns>The Base64 string representation.</returns>
+  public string ToBase64()
+  {
+    // URL-safe Base64 with no padding
+    return Convert.ToBase64String(Bytes).TrimEnd('=').Replace('+', '-').Replace('/', '_');
+  }
+
+  /// <summary>
+  /// Decodes a 22-character Base64 string into a UUID.
+  /// </summary>
+  /// <param name="base64String">The Base64 string to decode (URL-safe format).</param>
+  /// <returns>The decoded UUID.</returns>
+  /// <exception cref="ArgumentException">Thrown if the string is not 22 characters.</exception>
+  /// <exception cref="FormatException">Thrown if the string contains invalid characters.</exception>
+  public static UUID FromBase64(string base64String)
+  {
+    if (base64String.Length != 22) throw new ArgumentException("Base64 string must be exactly 22 characters long.", nameof(base64String));
+
+    // Convert URL-safe back to standard Base64
+    string standardBase64 = base64String.Replace('-', '+').Replace('_', '/') + "==";
+    
+    try
+    {
+      byte[] bytes = Convert.FromBase64String(standardBase64);
+      if (bytes.Length != 16) throw new ArgumentException("Decoded bytes must be exactly 16 bytes.");
+      return new UUID(bytes);
+    }
+    catch (FormatException ex)
+    {
+      throw new FormatException($"Invalid Base64 string: {ex.Message}", ex);
+    }
+  }
 
   /// <summary>
   /// Encodes the UUID as a 25-character Base36 string.
@@ -172,13 +210,13 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   }
 
   /// <summary>
-  /// Encodes the UUID as a 28-character Base25 string (Crockford-like, no ambiguous chars).
+  /// Encodes the UUID as a 26-character Base31 string (Crockford-like, no ambiguous chars).
   /// </summary>
-  /// <returns>The Base25 string representation.</returns>
-  public string ToBase25()
+  /// <returns>The Base31 string representation.</returns>
+  public string ToBase31()
   {
-    const int Base = 25;
-    const int FixedLength = 28;
+    const int Base = 31;
+    const int FixedLength = 26;
     Span<char> chars = stackalloc char[FixedLength];
     Span<byte> data = stackalloc byte[16];
     Bytes.CopyTo(data);
@@ -189,35 +227,35 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     {
       if (bigInt == BigInteger.Zero)
       {
-        for (int j = i; j >= 0; j--) chars[j] = base25Digits[0];
+        for (int j = i; j >= 0; j--) chars[j] = base31Digits[0];
         break;
       }
 
       bigInt = BigInteger.DivRem(bigInt, Base, out var remainder);
-      chars[i] = base25Digits[(int)remainder];
+      chars[i] = base31Digits[(int)remainder];
     }
 
     return new string(chars);
   }
 
   /// <summary>
-  /// Decodes a 28-character Base25 string into a UUID.
+  /// Decodes a 26-character Base31 string into a UUID.
   /// </summary>
-  /// <param name="base25String">The Base25 string to decode.</param>
+  /// <param name="base31String">The Base31 string to decode.</param>
   /// <returns>The decoded UUID.</returns>
-  /// <exception cref="ArgumentException">Thrown if the string is not 28 characters.</exception>
+  /// <exception cref="ArgumentException">Thrown if the string is not 26 characters.</exception>
   /// <exception cref="FormatException">Thrown if the string contains invalid characters.</exception>
-  public static UUID FromBase25(string base25String)
+  public static UUID FromBase31(string base31String)
   {
-    if (base25String.Length != 28) throw new ArgumentException("Base25 string must be exactly 28 characters long.", nameof(base25String));
+    if (base31String.Length != 26) throw new ArgumentException("Base31 string must be exactly 26 characters long.", nameof(base31String));
 
     BigInteger bigInt = BigInteger.Zero;
-    const int Base = 25;
+    const int Base = 31;
 
-    foreach (char c in base25String)
+    foreach (char c in base31String)
     {
-      int charValue = base25Digits.IndexOf(char.ToLowerInvariant(c));
-      if (charValue == -1) throw new FormatException($"Invalid Base25 character '{c}'.");
+      int charValue = base31Digits.IndexOf(char.ToLowerInvariant(c));
+      if (charValue == -1) throw new FormatException($"Invalid Base31 character '{c}'.");
       bigInt = (bigInt * Base) + charValue;
     }
 
@@ -225,6 +263,136 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
     return new UUID(bytes);
   }
+
+  public string ToBase32_MedoId26() => ToBase32();
+
+  /// <summary>
+  /// Encodes the UUID as a 26-character Base32 string using alphabet compatible with Medo (0-9, b-z except a, i, l, o).
+  /// This is compatible with Medo's Id26 format.
+  /// </summary>
+  /// <returns>The Base32 string representation.</returns>
+  private string ToBase32()
+  {
+    const int Base = 32;
+    const int FixedLength = 26;
+    Span<char> chars = stackalloc char[FixedLength];
+    Span<byte> data = stackalloc byte[16];
+    Bytes.CopyTo(data);
+
+    var bigInt = new BigInteger(data, isUnsigned: true, isBigEndian: true);
+
+    for (int i = FixedLength - 1; i >= 0; i--)
+    {
+      if (bigInt == BigInteger.Zero)
+      {
+        for (int j = i; j >= 0; j--) chars[j] = base32Digits[0];
+        break;
+      }
+
+      bigInt = BigInteger.DivRem(bigInt, Base, out var remainder);
+      chars[i] = base32Digits[(int)remainder];
+    }
+
+    return new string(chars);
+  }
+
+  public static UUID FromBase32_MedoId26(string base32String) => FromBase32(base32String);
+
+  /// <summary>
+  /// Decodes a 26-character Base32 string into a UUID.
+  /// Compatible with Medo's Id26 format.
+  /// </summary>
+  /// <param name="base32String">The Base32 string to decode.</param>
+  /// <returns>The decoded UUID.</returns>
+  /// <exception cref="ArgumentException">Thrown if the string is not 26 characters.</exception>
+  /// <exception cref="FormatException">Thrown if the string contains invalid characters.</exception>
+  private static UUID FromBase32(string base32String)
+  {
+    if (base32String.Length != 26) throw new ArgumentException("Base32 string must be exactly 26 characters long.", nameof(base32String));
+
+    BigInteger bigInt = BigInteger.Zero;
+    const int Base = 32;
+
+    foreach (char c in base32String)
+    {
+      int charValue = base32Digits.IndexOf(char.ToLowerInvariant(c));
+      if (charValue == -1) throw new FormatException($"Invalid Base32 character '{c}'.");
+      bigInt = (bigInt * Base) + charValue;
+    }
+
+    Span<byte> bytes = stackalloc byte[16];
+    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    return new UUID(bytes);
+  }
+
+  public string ToBase35_MedoId25() => ToBase35();
+
+  /// <summary>
+  /// Encodes the UUID as a 25-character Base35 string using Medo-compatible alphabet (0-9, a-z excluding 'l').
+  /// This is compatible with Medo's Id25 format.
+  /// </summary>
+  /// <returns>The Base35 string representation.</returns>
+  private string ToBase35()
+  {
+    const int Base = 35;
+    const int FixedLength = 25;
+    const string alphabet = "0123456789abcdefghijkmnopqrstuvwxyz"; // excludes 'l'
+    Span<char> chars = stackalloc char[FixedLength];
+    Span<byte> data = stackalloc byte[16];
+    Bytes.CopyTo(data);
+
+    var bigInt = new BigInteger(data, isUnsigned: true, isBigEndian: true);
+
+    for (int i = FixedLength - 1; i >= 0; i--)
+    {
+      if (bigInt == BigInteger.Zero)
+      {
+        for (int j = i; j >= 0; j--) chars[j] = alphabet[0];
+        break;
+      }
+
+      bigInt = BigInteger.DivRem(bigInt, Base, out var remainder);
+      chars[i] = alphabet[(int)remainder];
+    }
+
+    return new string(chars);
+  }
+
+  public static UUID FromBase35_MedoId25(string base35String) => FromBase35(base35String);
+
+  /// <summary>
+  /// Decodes a 25-character Base35 string into a UUID.
+  /// Compatible with Medo's Id25 format.
+  /// </summary>
+  /// <param name="base35String">The Base35 string to decode.</param>
+  /// <returns>The decoded UUID.</returns>
+  /// <exception cref="ArgumentException">Thrown if the string is not 25 characters.</exception>
+  /// <exception cref="FormatException">Thrown if the string contains invalid characters.</exception>
+  private static UUID FromBase35(string base35String)
+  {
+    if (base35String.Length != 25) throw new ArgumentException("Base35 string must be exactly 25 characters long.", nameof(base35String));
+
+    BigInteger bigInt = BigInteger.Zero;
+    const int Base = 35;
+    const string alphabet = "0123456789abcdefghijkmnopqrstuvwxyz"; // excludes 'l'
+
+    foreach (char c in base35String)
+    {
+      char lowerChar = char.ToLowerInvariant(c);
+      if (lowerChar == 'l') throw new FormatException($"Invalid Base35 character '{c}' ('l' is excluded).");
+      
+      int charValue = alphabet.IndexOf(lowerChar);
+      if (charValue == -1) throw new FormatException($"Invalid Base35 character '{c}'.");
+      
+      bigInt = (bigInt * Base) + charValue;
+    }
+
+    Span<byte> bytes = stackalloc byte[16];
+    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    return new UUID(bytes);
+  }
+
+
 
   // UUIDv4 static methods
   /// <summary>
@@ -334,10 +502,6 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// Returns the UUID version number (for example, 4 for UUIDv4 or 7 for UUIDv7).
   /// The version is stored in the most significant 4 bits of byte 6.
   /// </summary>
-  /// <summary>
-  /// Returns the UUID version number (for example, 4 for UUIDv4 or 7 for UUIDv7).
-  /// The version is stored in the most significant 4 bits of byte 6.
-  /// </summary>
   /// <returns>The UUID version number.</returns>
   public int GetVersion()
   {
@@ -350,9 +514,6 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// <summary>
   /// Enumeration for the UUID variant encoded in the most significant bits of byte 8.
   /// </summary>
-  /// <summary>
-  /// Enumeration for the UUID variant encoded in the most significant bits of byte 8.
-  /// </summary>
   public enum UuidVariant
   {
     NCS,
@@ -361,9 +522,6 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     Reserved
   }
 
-  /// <summary>
-  /// Returns the UUID variant encoded in the most significant bits of byte 8 as a <see cref="UuidVariant"/>.
-  /// </summary>
   /// <summary>
   /// Returns the UUID variant encoded in the most significant bits of byte 8 as a <see cref="UuidVariant"/>.
   /// </summary>

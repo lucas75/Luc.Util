@@ -4,11 +4,11 @@ A high-performance .NET library for working with UUIDs. Provides fast, zero-allo
 
 ## Features
 
-- **UUID**: Core UUID struct with multiple encoding formats (hex, base36, base25)
+- **UUID**: Core UUID struct with multiple encoding formats (hex, base36, base35, base32, base31)
 - **UUIDv4**: Random UUID generation (RFC 4122)
 - **UUIDv7**: Time-ordered UUID generation (RFC 9562)
 - **Zero-allocation**: Stack-allocated operations for optimal performance
-- **Multiple encodings**: Standard hex, base36 (25 chars), and base25 (28 chars)
+- **Multiple encodings**: Standard hex, base36 (25 chars), base35 (25 chars), base32 (26 chars), and base31 (26 chars)
 - **Interop**: Extension methods for `System.Guid` conversion
 
 ## Usage
@@ -43,8 +43,11 @@ DateTimeOffset timestamp = uuid7.V7GetTimestamp();
 
 // Convert to different formats
 string hex = uuid7.ToString();           // Standard hyphenated format (36 chars incl hyphens)
+string base64 = uuid7.ToBase64();        // 22-character Base64 (URL-safe, no padding) — not the Medo Id22 Base58
 string base36 = uuid7.ToBase36();        // 25-character base36 (0-9a-z)
-string base25 = uuid7.ToBase25();        // 28-character base25 (alphabet excludes ambiguous chars)
+string base35 = uuid7.ToBase35();        // 25-character base35 (0-9a-z excluding l)
+string base32 = uuid7.ToMedoId26();      // 26-character base32 (0-9, b-z excluding a, i, l, o)
+string base31 = uuid7.ToBase31();        // 26-character base31 (2-9, a-z excluding i, l, o)
 
 // Access raw bytes
 ReadOnlySpan<byte> bytes = uuid7.Bytes;
@@ -69,13 +72,17 @@ Console.WriteLine(converted.GetVersion());
 ### Parsing from Strings
 
 ```csharp
-// Parse from base36
 // Parse from base36 (25 char)
 var uuidFrom36 = UUID.FromBase36("00000000000000000000abcde");
 
-// Parse from base25
-// Parse from base25 (28 char)
-var uuidFrom25 = UUID.FromBase25("2222222222222222222222222222");
+// Parse from base35 (25 char)
+var uuidFrom35 = UUID.FromBase35("00000000000000000000abcde");
+
+// Parse from base32 (26 char)
+var uuidFrom32 = UUID.FromMedoId26("00000000000000000000000000");
+
+// Parse from base31 (26 char)
+var uuidFrom31 = UUID.FromBase31("22222222222222222222222222");
 ```
 
 ## Performance
@@ -110,6 +117,9 @@ dotnet test
 ## Notes
 
 - `ToBase36()` returns a 25-character string; `FromBase36()` requires exactly 25 characters.
-- `ToBase25()` returns a 28-character string; `FromBase25()` requires exactly 28 characters.
+- `ToBase35()` returns a 25-character string (Medo Id25-compatible alphabet); `FromBase35()` requires exactly 25 characters.
+- `ToBase64()` returns a 22-character URL-safe Base64 string (no padding); `FromBase64()` requires exactly 22 characters. Note: Medo's `Id22` is Base58, not Base64.
+- `ToMedoId26()` returns a 26-character string using Medo-compatible alphabet; `FromMedoId26()` requires exactly 26 characters.
+- `ToBase31()` returns a 26-character string; `FromBase31()` requires exactly 26 characters.
 - `V7GetTimestamp()` extracts the 48-bit timestamp from UUIDv7 and returns a `DateTimeOffset`.
 - For secure randomness, supply your own RNG when generating values in production.
