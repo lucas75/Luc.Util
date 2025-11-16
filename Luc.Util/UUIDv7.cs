@@ -7,16 +7,33 @@ namespace Luc.Util;
 /// Represents a Time-Ordered UUIDv7 (RFC 9562).
 /// </summary>
 [StructLayout(LayoutKind.Sequential, Size = 16)]
-public readonly struct UUIDv7
+public readonly struct UUIDv7 : UUID
 {  
-  private readonly UUID _uuid;
+  private readonly UUIDRecord _uuid;
 
   public UUIDv7(ReadOnlySpan<byte> bytes)
   {
-    _uuid = new UUID(bytes);
+    _uuid = new UUIDRecord(bytes);
   }
 
   public ReadOnlySpan<byte> Bytes => _uuid.Bytes;
+
+  public string ToBase36() => _uuid.ToBase36();
+
+  public string ToBase25() => _uuid.ToBase25();
+
+  public override string ToString() => _uuid.ToString();
+
+  public override bool Equals(object? obj)
+  {
+    return obj is UUIDv7 other && this == other;
+  }
+
+  public override int GetHashCode() => _uuid.GetHashCode();  
+
+  public static bool operator ==(UUIDv7 left, UUIDv7 right) => left._uuid.Equals(right._uuid);
+
+  public static bool operator !=(UUIDv7 left, UUIDv7 right) => !left._uuid.Equals(right._uuid);
 
   public static UUIDv7 Create()
   {
@@ -80,6 +97,4 @@ public readonly struct UUIDv7
 
     return DateTimeOffset.FromUnixTimeMilliseconds(timestampMs);
   }
-
-  public UUID AsUUID() => _uuid;
 }
