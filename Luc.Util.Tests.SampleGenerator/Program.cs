@@ -55,8 +55,8 @@ System.IO.File.WriteAllText
         public required string MedoId25 { get; init; }
         public required string MedoId26 { get; init; }
         public required string MedoId22 { get; init; }
-        public required DateTime TS1 { get; init; }
-        public required DateTime TS2 { get; init; }
+        public required DateTimeOffset TS1 { get; init; }
+        public required DateTimeOffset TS2 { get; init; }
     }
 
     public static readonly UuidRecord[] Uuids = [
