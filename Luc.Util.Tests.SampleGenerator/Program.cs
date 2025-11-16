@@ -23,8 +23,8 @@ for (int i = 0; i < 100; i++)
             new()
             {
                 UUID = "{{uuid}}", 
-                TS1 = DateTime.Parse("{{ts1:O}}"), 
-                TS2 = DateTime.Parse("{{ts2:O}}"),
+                TS1 = DateTimeOffset.Parse("{{ts1:O}}", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+                TS2 = DateTimeOffset.Parse("{{ts2:O}}", null, System.Globalization.DateTimeStyles.RoundtripKind),
                 MedoId25 = "{{uuid.ToId25String()}}",
                 MedoId26 = "{{uuid.ToId26String()}}",
                 MedoId22 = "{{uuid.ToId22String()}}",

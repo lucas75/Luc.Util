@@ -8,16 +8,16 @@ public static class Uuid7TestSamples
       public required string MedoId25 { get; init; }
       public required string MedoId26 { get; init; }
       public required string MedoId22 { get; init; }
-      public required DateTime TS1 { get; init; }
-      public required DateTime TS2 { get; init; }
+    public required DateTimeOffset TS1 { get; init; }
+    public required DateTimeOffset TS2 { get; init; }
   }
 
   public static readonly UuidRecord[] Uuids = [
       new()
       {
           UUID = "019a8dc6-9dd2-749f-90b4-e39611a2e60c", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.3421605Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.4833836Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.3421605Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.4833836Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbfcawbw26ii6x53yppo",
           MedoId26 = "06e8vjnxu9u9z45nwfc138r61m",
           MedoId22 = "1CVBzBQ2DkzNv8WTMsXUz7",
@@ -25,8 +25,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9e62-7408-8071-cea3c0c9a430", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.4902366Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.5922800Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.4902366Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.5922800Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbgbnevu1ju613850hpj",
           MedoId26 = "06e8vjnyd9u0j03jtujw1ke461",
           MedoId22 = "1CVBzBQdvp5hNmtvpSxbYT",
@@ -34,8 +34,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9ec8-75bc-b5d8-844a454e90fb", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.5923288Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.7054244Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.5923288Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.7054244Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbh0yk7xidbrmzh9zi4h",
           MedoId26 = "06e8vjnyt1uvtefshj54bmnhzg",
           MedoId22 = "1CVBzBR5DvmafhkYPmMmuc",
@@ -43,8 +43,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9f39-7325-bf8f-1bbe61c5879a", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.7054760Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.7815715Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.7054760Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.7815715Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbhswd57a4f63hw1un71",
           MedoId26 = "06e8vjnz75tkcgwg3fz63jd7mb",
           MedoId22 = "1CVBzBRZF1XgCig3VV5hzq",
@@ -52,8 +52,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9f85-77e3-a0e4-1f635d95d8c5", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.7816542Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.7867378Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.7816542Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.7867378Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbib0oubguvb3izg928f",
           MedoId26 = "06e8vjnzhpvy78743xjpv5fssp",
           MedoId22 = "1CVBzBRt6MEnY6hyk268A8",
@@ -61,8 +61,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9f8a-7233-b87a-23252234d1b2", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.7867626Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.7918409Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.7867626Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.7918409Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbic77jt6m8y8gstebxh",
           MedoId26 = "06e8vjnzj9t37f3u4dkk4e6jq8",
           MedoId22 = "1CVBzBRuKweLzn5d58WcZF",
@@ -70,8 +70,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9f8f-70f3-b98c-2f6464eeb7ac", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.7918550Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.8419331Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.7918550Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.8419331Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbiddwcfpfo91wbq0nfg",
           MedoId26 = "06e8vjnzjxsg7fdd5xk69vprpk",
           MedoId22 = "1CVBzBRvZnWWSX5DurqoU7",
@@ -79,8 +79,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9fc1-7049-88f2-e2643f1c2e22", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.8419783Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:35.8640587Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.8419783Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:35.8640587Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbiqb2rexbtm36f0wn1r",
           MedoId26 = "06e8vjnzs5s4m27kw9k3y71f4b",
           MedoId22 = "1CVBzBS8xsiuWGRh4xGgXs",
@@ -88,8 +88,8 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-9fd8-71ce-941a-1017dff066e8", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:35.8640882Z"), 
-          TS2 = DateTime.Parse("2025-11-16T17:46:36.0191734Z"),
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:35.8640882Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
+          TS2 = DateTimeOffset.Parse("2025-11-16T17:46:36.0191734Z", null, System.Globalization.DateTimeStyles.RoundtripKind),
           MedoId25 = "06iovvbivt1gujws36bujqk1y",
           MedoId26 = "06e8vjnzv1swx50u20cxzw36x3",
           MedoId22 = "1CVBzBSEfkzP9V9aGZeYEs",
@@ -97,7 +97,7 @@ public static class Uuid7TestSamples
       new()
       {
           UUID = "019a8dc6-a073-732e-9856-8efcc718bfbd", 
-          TS1 = DateTime.Parse("2025-11-16T17:46:36.0192058Z"), 
+          TS1 = DateTimeOffset.Parse("2025-11-16T17:46:36.0192058Z", null, System.Globalization.DateTimeStyles.RoundtripKind), 
           TS2 = DateTime.Parse("2025-11-16T17:46:36.0532828Z"),
           MedoId25 = "06iovvbjxreqvb9js32dbbqmf",
           MedoId26 = "06e8vjp0fetkx62qjvydf65zrn",
