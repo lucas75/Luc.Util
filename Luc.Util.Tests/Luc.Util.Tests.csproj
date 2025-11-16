@@ -22,4 +22,8 @@
     </PackageReference>
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../Luc.Util/Luc.Util.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -1,2 +1,0 @@
-namespace Luc.Util.Tests; 
-
