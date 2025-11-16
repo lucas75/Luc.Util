@@ -292,11 +292,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     {
         return UuidVariant.NCS;
     }
-    else if ((variantByte & 0x40) == 0x00)
+    else if ((variantByte & 0xC0) == 0x80)
     {
         return UuidVariant.Rfc4122;
     }
-    else if ((variantByte & 0x20) == 0x00)
+    else if ((variantByte & 0xE0) == 0xC0)
     {
         return UuidVariant.Microsoft;
     }

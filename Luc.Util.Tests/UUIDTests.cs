@@ -168,10 +168,10 @@ public class UUIDTests
     public void UUID_GetVersionVariant_ShouldReturnEnum()
     {
         var uuidV4 = UUID.NewV4();
-        Assert.Equal(UuidVariant.Rfc4122, uuidV4.GetVariant());
+        Assert.Equal(UUID.UuidVariant.Rfc4122, uuidV4.GetVariant());
 
         var uuidV7 = UUID.NewV7();
-        Assert.Equal(UuidVariant.Rfc4122, uuidV7.GetVariant());
+        Assert.Equal(UUID.UuidVariant.Rfc4122, uuidV7.GetVariant());
 
         // Manually create a UUID with variant bits 0xC0
         byte[] bytes = new byte[16];
@@ -179,7 +179,7 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0xC0);
         var custom = new UUID(bytes);
-        Assert.Equal(UuidVariant.Microsoft, custom.GetVariant());
+        Assert.Equal(UUID.UuidVariant.Microsoft, custom.GetVariant());
     }
 
     [Fact]
