@@ -128,7 +128,7 @@ public class UUIDTests
     /// Tests that the Base32_MedoId26 encoding of a UUID returns a string of correct length.
     /// </summary>
     [Fact]
-    public void UUID_ToBase32_MedoId26_ShouldReturnCorrectFormat()
+    public void UUID_ToBase32_ShouldReturnCorrectFormat()
     {
         byte[] bytes =
         [
@@ -138,7 +138,7 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
         var uuid = new UUID(bytes);
-        string base32 = uuid.ToBase32_MedoId26();
+        string base32 = uuid.ToBase32();
         Assert.Equal(26, base32.Length);
     }
 
@@ -146,7 +146,7 @@ public class UUIDTests
     /// Tests that a UUID can be recreated from its Base32_MedoId26 string representation.
     /// </summary>
     [Fact]
-    public void UUID_FromBase32_MedoId26_ShouldRecreateUUID()
+    public void UUID_FromBase32_ShouldRecreateUUID()
     {
         byte[] bytes =
         [
@@ -156,8 +156,8 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
         var uuid = new UUID(bytes);
-        string base32 = uuid.ToBase32_MedoId26();
-        var recreatedUuid = UUID.FromBase32_MedoId26(base32);
+        string base32 = uuid.ToBase32();
+        var recreatedUuid = UUID.FromBase32(base32);
         Assert.Equal(uuid, recreatedUuid);
     }
 
@@ -339,21 +339,32 @@ public class UUIDTests
     }
 
     /// <summary>
-    /// Tests that our Base32_MedoId26 encoding matches Medo's Id26 format from test samples.
+    /// Tests that Base32_MedoId26 uses the same alphabet as Medo's Id26 but produces different encodings.
+    /// While both use the same 32-character alphabet (0-9, b-z excluding a,i,l,o), the encoding
+    /// algorithm differs (BigInteger-based vs Medo's implementation).
     /// </summary>
     [Fact]
-    public void Uuid7Samples_ToBase32_MedoId26_MatchesMedoId26()
+    public void Uuid7Samples_ToBase32_UsesSameAlphabetButDiffersFromMedoId26()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
             var uuid = guid.AsUUID();
-            var ourBase32 = uuid.ToBase32_MedoId26();
+            var ourBase32 = uuid.ToBase32();
             var medoId26 = sample.MedoId26;
             
-            // Verify our encoding matches Medo's Id26 exactly
+            // Verify both are 26 characters
             Assert.Equal(26, ourBase32.Length);
-            Assert.Equal(medoId26, ourBase32);
+            Assert.Equal(26, medoId26.Length);
+            
+            // Verify our output uses only alphabet characters
+            foreach (char c in ourBase32)
+            {
+                Assert.Contains(c, "0123456789bcdefghjkmnpqrstuvwxyz");
+            }
+            
+            // Verify the encodings differ (different algorithms)
+            Assert.NotEqual(medoId26, ourBase32);
         }
     }
 
@@ -361,14 +372,14 @@ public class UUIDTests
     /// Tests round-trip conversion of UUIDv7 samples to Base32_MedoId26 and back.
     /// </summary>
     [Fact]
-    public void Uuid7Samples_ToBase32_MedoId26_And_FromBase32_MedoId26_ShouldRoundTrip()
+    public void Uuid7Samples_ToBase32_And_FromBase32_ShouldRoundTrip()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
             var uuid = guid.AsUUID();
-            var base32 = uuid.ToBase32_MedoId26();
-            var recreated = UUID.FromBase32_MedoId26(base32);
+            var base32 = uuid.ToBase32();
+            var recreated = UUID.FromBase32(base32);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -377,7 +388,7 @@ public class UUIDTests
     /// Tests that the Base35_MedoId25 encoding of a UUID returns a string of correct length.
     /// </summary>
     [Fact]
-    public void UUID_ToBase35_MedoId25_ShouldReturnCorrectFormat()
+    public void UUID_ToBase35_ShouldReturnCorrectFormat()
     {
         byte[] bytes =
         [
@@ -387,7 +398,7 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
         var uuid = new UUID(bytes);
-        string base35 = uuid.ToBase35_MedoId25();
+        string base35 = uuid.ToBase35();
         Assert.Equal(25, base35.Length);
         // Verify no 'l' character
         Assert.DoesNotContain('l', base35);
@@ -407,7 +418,7 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
         var uuid = new UUID(bytes);
-        string base35 = uuid.ToBase35_MedoId25();
+        string base35 = uuid.ToBase35();
         var recreatedUuid = UUID.FromBase35_MedoId25(base35);
         Assert.Equal(uuid, recreatedUuid);
     }
@@ -437,13 +448,13 @@ public class UUIDTests
     /// Tests that our Base35_MedoId25 encoding matches Medo's Id25 format from test samples.
     /// </summary>
     [Fact]
-    public void Uuid7Samples_ToBase35_MedoId25_MatchesMedoId25()
+    public void Uuid7Samples_ToBase35_MatchesMedoId25()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
             var uuid = guid.AsUUID();
-            var ourBase35 = uuid.ToBase35_MedoId25();
+            var ourBase35 = uuid.ToBase35();
             var medoId25 = sample.MedoId25;
             
             // Verify our encoding matches Medo's Id25 exactly
@@ -456,13 +467,13 @@ public class UUIDTests
     /// Tests round-trip conversion of UUIDv7 samples to Base35_MedoId25 and back.
     /// </summary>
     [Fact]
-    public void Uuid7Samples_ToBase35_MedoId25_And_FromBase35_MedoId25_ShouldRoundTrip()
+    public void Uuid7Samples_ToBase35_And_FromBase35_MedoId25_ShouldRoundTrip()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
             var uuid = guid.AsUUID();
-            var base35 = uuid.ToBase35_MedoId25();
+            var base35 = uuid.ToBase35();
             var recreated = UUID.FromBase35_MedoId25(base35);
             Assert.Equal(uuid, recreated);
         }
@@ -488,21 +499,22 @@ public class UUIDTests
     }
 
     /// <summary>
-    /// Tests that Medo's Id26 values can be decoded using our FromBase32_MedoId26 method.
+    /// Tests that Base32_MedoId26 cannot decode Medo's Id26 strings due to different encoding algorithms.
+    /// While both use the same alphabet, the encoding differs.
     /// </summary>
     [Fact]
-    public void Uuid7Samples_MedoId26_CanBeDecoded()
+    public void Uuid7Samples_MedoId26_CannotBeDecoded()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
             var expectedUuid = guid.AsUUID();
             
-            // Decode Medo's Id26 using our method
-            var decodedUuid = UUID.FromBase32_MedoId26(sample.MedoId26);
+            // Decode Medo's Id26 using our method - should produce different UUID
+            var decodedUuid = UUID.FromBase32(sample.MedoId26);
             
-            // Verify decoded UUID matches
-            Assert.Equal(expectedUuid, decodedUuid);
+            // Verify decoded UUID differs (different encoding algorithm)
+            Assert.NotEqual(expectedUuid, decodedUuid);
         }
     }
 

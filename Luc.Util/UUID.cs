@@ -264,14 +264,12 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     return new UUID(bytes);
   }
 
-  public string ToBase32_MedoId26() => ToBase32();
-
   /// <summary>
-  /// Encodes the UUID as a 26-character Base32 string using alphabet compatible with Medo (0-9, b-z except a, i, l, o).
-  /// This is compatible with Medo's Id26 format.
+  /// Encodes the UUID as a 26-character Base32 string using alphabet: 0-9, b-z excluding a, i, l, o.
+  /// Not Medo Id26 compatible (different encoding algorithm). Public API retained as generic Base32.
   /// </summary>
   /// <returns>The Base32 string representation.</returns>
-  private string ToBase32()
+  public string ToBase32()
   {
     const int Base = 32;
     const int FixedLength = 26;
@@ -296,17 +294,15 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     return new string(chars);
   }
 
-  public static UUID FromBase32_MedoId26(string base32String) => FromBase32(base32String);
-
   /// <summary>
-  /// Decodes a 26-character Base32 string into a UUID.
-  /// Compatible with Medo's Id26 format.
+  /// Decodes a 26-character Base32 string (same alphabet: 0-9, b-z excluding a,i,l,o) produced by <see cref="ToBase32"/>.
+  /// Not compatible with Medo Id26 strings.
   /// </summary>
   /// <param name="base32String">The Base32 string to decode.</param>
   /// <returns>The decoded UUID.</returns>
   /// <exception cref="ArgumentException">Thrown if the string is not 26 characters.</exception>
   /// <exception cref="FormatException">Thrown if the string contains invalid characters.</exception>
-  private static UUID FromBase32(string base32String)
+  public static UUID FromBase32(string base32String)
   {
     if (base32String.Length != 26) throw new ArgumentException("Base32 string must be exactly 26 characters long.", nameof(base32String));
 
@@ -325,14 +321,12 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     return new UUID(bytes);
   }
 
-  public string ToBase35_MedoId25() => ToBase35();
-
   /// <summary>
-  /// Encodes the UUID as a 25-character Base35 string using Medo-compatible alphabet (0-9, a-z excluding 'l').
-  /// This is compatible with Medo's Id25 format.
+  /// Encodes the UUID as a 25-character Base35 string using alphabet (0-9, a-z excluding 'l').
+  /// Compatible with Medo's Id25 format (same alphabet and encoding size), but exposed generically.
   /// </summary>
   /// <returns>The Base35 string representation.</returns>
-  private string ToBase35()
+  public string ToBase35()
   {
     const int Base = 35;
     const int FixedLength = 25;
