@@ -26,4 +26,8 @@
     <ProjectReference Include="../Luc.Util/Luc.Util.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Generated/" />
+  </ItemGroup>
+
 </Project>
