@@ -6,9 +6,8 @@ namespace Luc.Util.Tests;
 
 public class UUIDTests
 {
-
     [Fact]
-    public void UUIDv4_ValidBytes_ShouldCreateUUIDv4()
+    public void UUID_ValidBytes_ShouldCreateUUID()
     {
         byte[] bytes = new byte[16];
         Random.Shared.NextBytes(bytes);
@@ -16,21 +15,19 @@ public class UUIDTests
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
 
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         Assert.Equal(bytes, uuid.Bytes.ToArray());
     }
 
-
     [Fact]
-    public void UUIDv4_InvalidBytes_ShouldThrowArgumentException()
+    public void UUID_InvalidBytes_ShouldThrowArgumentException()
     {
         byte[] bytes = new byte[15]; // Invalid length
-        Assert.Throws<ArgumentException>(() => new UUIDv4(bytes));
+        Assert.Throws<ArgumentException>(() => new UUID(bytes));
     }
 
-
     [Fact]
-    public void UUIDv4_ToString_ShouldReturnCorrectFormat()
+    public void UUID_ToString_ShouldReturnCorrectFormat()
     {
         byte[] bytes =
         [
@@ -39,14 +36,13 @@ public class UUIDTests
         ];
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         string expected = "12345678-90ab-4def-9234-567890abcdef";
         Assert.Equal(expected, uuid.ToString());
     }
 
-
     [Fact]
-    public void UUIDv4_ToBase36_ShouldReturnCorrectFormat()
+    public void UUID_ToBase36_ShouldReturnCorrectFormat()
     {
         byte[] bytes =
         [
@@ -55,14 +51,13 @@ public class UUIDTests
         ];
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         string base36 = uuid.ToBase36();
         Assert.Equal(25, base36.Length);
     }
 
-
     [Fact]
-    public void UUIDv4_FromBase36_ShouldRecreateUUIDv4()
+    public void UUID_FromBase36_ShouldRecreateUUID()
     {
         byte[] bytes =
         [
@@ -71,21 +66,14 @@ public class UUIDTests
         ];
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         string base36 = uuid.ToBase36();
-        var recreatedRecord = UUIDRecord.FromBase36(base36);
-        var recreatedUuid = new UUIDv4(recreatedRecord.Bytes);
-        if (!uuid.Equals(recreatedUuid))
-        {
-            Console.WriteLine($"Original:   {BitConverter.ToString(uuid.Bytes.ToArray())}");
-            Console.WriteLine($"Recreated:  {BitConverter.ToString(recreatedUuid.Bytes.ToArray())}");
-        }
+        var recreatedUuid = UUID.FromBase36(base36);
         Assert.Equal(uuid, recreatedUuid);
     }
 
-
     [Fact]
-    public void UUIDv4_ToBase25_ShouldReturnCorrectFormat()
+    public void UUID_ToBase25_ShouldReturnCorrectFormat()
     {
         byte[] bytes =
         [
@@ -94,14 +82,13 @@ public class UUIDTests
         ];
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         string base25 = uuid.ToBase25();
         Assert.Equal(28, base25.Length);
     }
 
-
     [Fact]
-    public void UUIDv4_FromBase25_ShouldRecreateUUIDv4()
+    public void UUID_FromBase25_ShouldRecreateUUID()
     {
         byte[] bytes =
         [
@@ -110,34 +97,28 @@ public class UUIDTests
         ];
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid = new UUIDv4(bytes);
+        var uuid = new UUID(bytes);
         string base25 = uuid.ToBase25();
-        var recreatedRecord = UUIDRecord.FromBase25(base25);
-        var recreatedUuid = new UUIDv4(recreatedRecord.Bytes);
-        if (!uuid.Equals(recreatedUuid))
-        {
-            Console.WriteLine($"Original:   {BitConverter.ToString(uuid.Bytes.ToArray())}");
-            Console.WriteLine($"Recreated:  {BitConverter.ToString(recreatedUuid.Bytes.ToArray())}");
-        }
+        var recreatedUuid = UUID.FromBase25(base25);
         Assert.Equal(uuid, recreatedUuid);
     }
 
-
     [Fact]
-    public void UUIDv4_Equality_ShouldWorkCorrectly()
+    public void UUID_Equality_ShouldWorkCorrectly()
     {
         byte[] bytes = new byte[16];
         Random.Shared.NextBytes(bytes);
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
-        var uuid1 = new UUIDv4(bytes);
-        var uuid2 = new UUIDv4(bytes);
-            Assert.Equal(uuid1.ToString(), uuid2.ToString());
+        var uuid1 = new UUID(bytes);
+        var uuid2 = new UUID(bytes);
+        Assert.Equal(uuid1, uuid2);
+        Assert.True(uuid1 == uuid2);
+        Assert.False(uuid1 != uuid2);
     }
 
-
     [Fact]
-    public void UUIDv4_Comparison_ShouldWorkCorrectly()
+    public void UUID_Comparison_ShouldWorkCorrectly()
     {
         byte[] bytes1 = new byte[16];
         byte[] bytes2 = new byte[16];
@@ -147,13 +128,49 @@ public class UUIDTests
         bytes1[8] = (byte)((bytes1[8] & 0x3F) | 0x80);
         bytes2[6] = (byte)((bytes2[6] & 0x0F) | 0x40);
         bytes2[8] = (byte)((bytes2[8] & 0x3F) | 0x80);
-        var uuid1 = new UUIDv4(bytes1);
-        var uuid2 = new UUIDv4(bytes2);
-        int comparison = uuid1.Bytes.SequenceCompareTo(uuid2.Bytes);
+        var uuid1 = new UUID(bytes1);
+        var uuid2 = new UUID(bytes2);
+        int comparison = uuid1.CompareTo(uuid2);
         Assert.Equal(comparison < 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) < 0);
         Assert.Equal(comparison > 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) > 0);
     }
 
+    [Fact]
+    public void UUID_NewV4_ShouldCreateValidV4()
+    {
+        var uuid = UUID.NewV4();
+        var bytes = uuid.Bytes.ToArray();
+        
+        // Check version bits (should be 0x4X)
+        Assert.Equal(0x40, bytes[6] & 0xF0);
+        // Check variant bits (should be 0x8X, 0x9X, 0xAX, or 0xBX)
+        Assert.Equal(0x80, bytes[8] & 0xC0);
+    }
+
+    [Fact]
+    public void UUID_NewV7_ShouldCreateValidV7()
+    {
+        var uuid = UUID.NewV7();
+        var bytes = uuid.Bytes.ToArray();
+        
+        // Check version bits (should be 0x7X)
+        Assert.Equal(0x70, bytes[6] & 0xF0);
+        // Check variant bits (should be 0x8X, 0x9X, 0xAX, or 0xBX)
+        Assert.Equal(0x80, bytes[8] & 0xC0);
+    }
+
+    [Fact]
+    public void UUID_V7GetTimestamp_ShouldReturnValidTimestamp()
+    {
+        var before = DateTimeOffset.UtcNow;
+        var uuid = UUID.NewV7();
+        var after = DateTimeOffset.UtcNow;
+        
+        var timestamp = uuid.V7GetTimestamp();
+        
+        Assert.True(timestamp >= before.AddMilliseconds(-1));
+        Assert.True(timestamp <= after.AddMilliseconds(1));
+    }
 
     [Fact]
     public void Uuid7Samples_ToBase36_And_FromBase36_ShouldRoundTrip()
@@ -161,36 +178,23 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
-            if (!guid.AsUUIDv7(out var uuid7))
-                continue;
-            var base36 = uuid7.ToBase36();
-            var recreatedRecord = UUIDRecord.FromBase36(base36);
-            var recreated = new UUIDv7(recreatedRecord.Bytes);
-            if (!uuid7.Equals(recreated))
-            {
-                Console.WriteLine($"Original:   {BitConverter.ToString(uuid7.Bytes.ToArray())}");
-                Console.WriteLine($"Recreated:  {BitConverter.ToString(recreated.Bytes.ToArray())}");
-            }
-            Assert.Equal(uuid7, recreated);
+            var uuid = guid.AsUUID();
+            var base36 = uuid.ToBase36();
+            var recreated = UUID.FromBase36(base36);
+            Assert.Equal(uuid, recreated);
         }
     }
+
     [Fact]
     public void Uuid7Samples_ToBase25_And_FromBase25_ShouldRoundTrip()
     {
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var guid = Guid.Parse(sample.UUID);
-            if (!guid.AsUUIDv7(out var uuid7))
-                continue;
-            var base25 = uuid7.ToBase25();
-            var recreatedRecord = UUIDRecord.FromBase25(base25);
-            var recreated = new UUIDv7(recreatedRecord.Bytes);
-            if (!uuid7.Equals(recreated))
-            {
-                Console.WriteLine($"Original:   {BitConverter.ToString(uuid7.Bytes.ToArray())}");
-                Console.WriteLine($"Recreated:  {BitConverter.ToString(recreated.Bytes.ToArray())}");
-            }
-            Assert.Equal(uuid7, recreated);
+            var uuid = guid.AsUUID();
+            var base25 = uuid.ToBase25();
+            var recreated = UUID.FromBase25(base25);
+            Assert.Equal(uuid, recreated);
         }
     }
 }
