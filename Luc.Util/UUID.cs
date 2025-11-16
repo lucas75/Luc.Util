@@ -7,6 +7,8 @@ using System.Runtime.InteropServices;
 
 namespace Luc.Util;
 
+
+
 /// <summary>
 /// Represents a UUID structure with support for UUIDv4 and UUIDv7.
 /// </summary>
@@ -239,6 +241,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   public DateTimeOffset V7GetTimestamp()
   {
     ReadOnlySpan<byte> bytes = Bytes;
+    
+    if( ((bytes[6] & 0xF0) >> 4) != 7 ) {
+      throw new ArgumentException( "Not a UUIDv7 instance.");
+    }
+
     long timestampMs =
         ((long)bytes[0] << 40) |
         ((long)bytes[1] << 32) |
@@ -249,5 +256,56 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
 
     return DateTimeOffset.FromUnixTimeMilliseconds(timestampMs);
   }
+
+  /// <summary>
+  /// Returns the UUID version number (for example, 4 for UUIDv4 or 7 for UUIDv7).
+  /// The version is stored in the most significant 4 bits of byte 6.
+  /// </summary>
+  public int GetVersion()
+  {
+    ReadOnlySpan<byte> bytes = Bytes;
+    return (bytes[6] & 0xF0) >> 4;
+  }
+
+
+
+  /// <summary>
+  /// Enumeration for the UUID variant encoded in the most significant bits of byte 8.
+  /// </summary>
+  public enum UuidVariant
+  {
+    NCS,
+    Rfc4122,
+    Microsoft,
+    Reserved
+  }
+
+  /// <summary>
+  /// Returns the UUID variant encoded in the most significant bits of byte 8 as a <see cref="UuidVariant"/>.
+  /// </summary>
+  public UuidVariant GetVariant()
+  {
+    ReadOnlySpan<byte> bytes = Bytes;
+    byte variantByte = bytes[8];
+
+    if ((variantByte & 0x80) == 0x00)
+    {
+        return UuidVariant.NCS;
+    }
+    else if ((variantByte & 0x40) == 0x00)
+    {
+        return UuidVariant.Rfc4122;
+    }
+    else if ((variantByte & 0x20) == 0x00)
+    {
+        return UuidVariant.Microsoft;
+    }
+    else
+    {
+        return UuidVariant.Reserved;
+    }
+  }
+
+  
 }
 
