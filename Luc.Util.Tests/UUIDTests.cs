@@ -1,5 +1,6 @@
 using System;
 using Luc.Util.Tests.Generated;
+using Luc.Util;
 using Xunit;
 
 namespace Luc.Util.Tests;
@@ -94,7 +95,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base36 = uuid.ToBase36();
+            string base36 = Base36.Encode(uuid, 25);
             Assert.Equal(25, base36.Length);
         }
     }
@@ -108,8 +109,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base36 = uuid.ToBase36();
-            var recreatedUuid = UUID.FromBase36(base36);
+            string base36 = Base36.Encode(uuid, 25);
+            var recreatedUuid = Base36.Decode<UUID>(base36, 25);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -123,7 +124,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base31 = uuid.ToBase31();
+            string base31 = Base31.Encode(uuid, 26);
             Assert.Equal(26, base31.Length);
         }
     }
@@ -137,8 +138,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base31 = uuid.ToBase31();
-            var recreatedUuid = UUID.FromBase31(base31);
+            string base31 = Base31.Encode(uuid, 26);
+            var recreatedUuid = Base31.Decode<UUID>(base31, 26);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -152,7 +153,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base32 = uuid.ToBase32();
+            string base32 = Base32.Encode(uuid, 26);
             Assert.Equal(26, base32.Length);
         }
     }
@@ -166,8 +167,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base32 = uuid.ToBase32();
-            var recreatedUuid = UUID.FromBase32(base32);
+            string base32 = Base32.Encode(uuid, 26);
+            var recreatedUuid = Base32.Decode<UUID>(base32, 26);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -367,8 +368,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var base36 = uuid.ToBase36();
-            var recreated = UUID.FromBase36(base36);
+            var base36 = Base36.Encode(uuid, 25);
+            var recreated = Base36.Decode<UUID>(base36, 25);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -382,8 +383,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var base31 = uuid.ToBase31();
-            var recreated = UUID.FromBase31(base31);
+            var base31 = Base31.Encode(uuid, 26);
+            var recreated = Base31.Decode<UUID>(base31, 26);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -399,7 +400,7 @@ public class UUIDTests
         // Both produce 26-character strings but with different encodings
         
         var uuid = UUID.Parse(Uuid7TestSamples.Uuids[0].UUID);
-        var base31 = uuid.ToBase31();
+        var base31 = Base31.Encode(uuid, 26);
         var medoId26 = Uuid7TestSamples.Uuids[0].MedoId26;
         
         Assert.Equal(26, base31.Length);
@@ -418,7 +419,7 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var ourBase32 = uuid.ToBase32();
+            var ourBase32 = Base32.Encode(uuid, 26);
             var medoId26 = sample.MedoId26;
             
             // Verify both are 26 characters
@@ -445,8 +446,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var base32 = uuid.ToBase32();
-            var recreated = UUID.FromBase32(base32);
+            var base32 = Base32.Encode(uuid, 26);
+            var recreated = Base32.Decode<UUID>(base32, 26);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -460,7 +461,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base35 = uuid.ToBase35();
+            string base35 = Base35.Encode(uuid, 25);
             Assert.Equal(25, base35.Length);
             // Verify no 'l' character
             Assert.DoesNotContain('l', base35);
@@ -476,8 +477,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base35 = uuid.ToBase35();
-            var recreatedUuid = UUID.FromBase35_MedoId25(base35);
+            string base35 = Base35.Encode(uuid, 25);
+            var recreatedUuid = Base35.Decode<UUID>(base35, 25);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -491,7 +492,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base64 = uuid.ToBase64();
+            string base64 = Base64.Encode(uuid);
             Assert.Equal(22, base64.Length);
             Assert.DoesNotContain('+', base64);
             Assert.DoesNotContain('/', base64);
@@ -508,7 +509,7 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var ourBase35 = uuid.ToBase35();
+            var ourBase35 = Base35.Encode(uuid, 25);
             var medoId25 = sample.MedoId25;
             
             // Verify our encoding matches Medo's Id25 exactly
@@ -526,8 +527,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var base35 = uuid.ToBase35();
-            var recreated = UUID.FromBase35_MedoId25(base35);
+            var base35 = Base35.Encode(uuid, 25);
+            var recreated = Base35.Decode<UUID>(base35, 25);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -541,8 +542,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = UUID.Parse(sample.Canonical);
-            string base64 = uuid.ToBase64();
-            var recreatedUuid = UUID.FromBase64(base64);
+            string base64 = Base64.Encode(uuid);
+            var recreatedUuid = Base64.Decode<UUID>(base64, 22);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -559,7 +560,7 @@ public class UUIDTests
             var expectedUuid = UUID.Parse(sample.UUID);
             
             // Decode Medo's Id26 using our method - should produce different UUID
-            var decodedUuid = UUID.FromBase32(sample.MedoId26);
+            var decodedUuid = Base32.Decode<UUID>(sample.MedoId26, 26);
             
             // Verify decoded UUID differs (different encoding algorithm)
             Assert.NotEqual(expectedUuid, decodedUuid);
@@ -601,8 +602,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = UUID.Parse(sample.UUID);
-            var base64 = uuid.ToBase64();
-            var recreated = UUID.FromBase64(base64);
+            var base64 = Base64.Encode(uuid);
+            var recreated = Base64.Decode<UUID>(base64, 22);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -644,28 +645,28 @@ public class UUIDTests
         Assert.False(UUID.TryParse(hex.AsSpan(), out _));
 
         // Base64
-        var base64 = uuid.ToBase64();
+        var base64 = Base64.Encode(uuid);
         // Use FromBase64 for non-canonical encoded forms
         // TryParse only accepts canonical form: encoded formats should not parse
         Assert.False(UUID.TryParse(base64, out _));
 
         // Base36
-        var base36 = uuid.ToBase36();
+        var base36 = Base36.Encode(uuid, 25);
         // Use FromBase36 for non-canonical encoded forms
         Assert.False(UUID.TryParse(base36, out _));
 
         // Base31
-        var base31 = uuid.ToBase31();
+        var base31 = Base31.Encode(uuid, 26);
         // Use FromBase31 for non-canonical encoded forms
         Assert.False(UUID.TryParse(base31, out _));
 
         // Base32
-        var base32 = uuid.ToBase32();
+        var base32 = Base32.Encode(uuid, 26);
         // Use FromBase32 for non-canonical encoded forms
         Assert.False(UUID.TryParse(base32, out _));
 
         // Base35 (Medo Id25)
-        var base35 = uuid.ToBase35();
+        var base35 = Base35.Encode(uuid, 25);
         // Use FromBase35_MedoId25 for non-canonical encoded forms
         Assert.False(UUID.TryParse(base35, out _));
 
