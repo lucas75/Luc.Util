@@ -205,7 +205,22 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     }
 
     Span<byte> bytes = stackalloc byte[16];
-    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    bytes.Clear();
+    Span<byte> temp = stackalloc byte[16];
+    temp.Clear();
+    bigInt.TryWriteBytes(temp, out var written, isUnsigned: true, isBigEndian: true);
+
+    // BigInteger writes the minimal unsigned big-endian representation; if we
+    // wrote fewer than 16 bytes then the result should be right-aligned into
+    // the 16-byte UUID layout.
+    if (written < 16)
+    {
+      temp.Slice(0, written).CopyTo(bytes.Slice(16 - written));
+    }
+    else
+    {
+      temp.CopyTo(bytes);
+    }
     return new UUID(bytes);
   }
 
@@ -260,7 +275,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     }
 
     Span<byte> bytes = stackalloc byte[16];
-    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    bytes.Clear();
+    Span<byte> temp = stackalloc byte[16];
+    temp.Clear();
+    bigInt.TryWriteBytes(temp, out var written, isUnsigned: true, isBigEndian: true);
+    if (written < 16) temp.Slice(0, written).CopyTo(bytes.Slice(16 - written)); else temp.CopyTo(bytes);
     return new UUID(bytes);
   }
 
@@ -317,7 +336,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     }
 
     Span<byte> bytes = stackalloc byte[16];
-    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    bytes.Clear();
+    Span<byte> temp = stackalloc byte[16];
+    temp.Clear();
+    bigInt.TryWriteBytes(temp, out var written, isUnsigned: true, isBigEndian: true);
+    if (written < 16) temp.Slice(0, written).CopyTo(bytes.Slice(16 - written)); else temp.CopyTo(bytes);
     return new UUID(bytes);
   }
 
@@ -382,7 +405,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     }
 
     Span<byte> bytes = stackalloc byte[16];
-    bigInt.TryWriteBytes(bytes, out _, isUnsigned: true, isBigEndian: true);
+    bytes.Clear();
+    Span<byte> temp = stackalloc byte[16];
+    temp.Clear();
+    bigInt.TryWriteBytes(temp, out var written, isUnsigned: true, isBigEndian: true);
+    if (written < 16) temp.Slice(0, written).CopyTo(bytes.Slice(16 - written)); else temp.CopyTo(bytes);
     return new UUID(bytes);
   }
 
