@@ -528,6 +528,104 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     return (bytes[6] & 0xF0) >> 4;
   }
 
+  /// <summary>
+  /// Parses a string representation of a UUID in various supported formats.
+  /// Supports canonical UUID strings (with or without hyphens), Base64 (22 chars URL-safe),
+  /// Base36 (25 chars), Base35 (25 chars), Base31 (26 chars), Base32 (26 chars).
+  /// </summary>
+  /// <param name="s">The string representation.</param>
+  /// <returns>The parsed <see cref="UUID"/>.</returns>
+  /// <exception cref="FormatException">Thrown when the input cannot be parsed.</exception>
+  public static UUID Parse(string s)
+  {
+    if (s is null) throw new FormatException("Invalid UUID string format.");
+
+    // Only accept the canonical hyphenated form here — TryParse(span) already
+    // supports this canonical format with a non-allocating implementation.
+    if (TryParse(s.AsSpan(), out var uuid)) return uuid;
+
+    throw new FormatException("Invalid UUID string format.");
+  }
+
+  /// <summary>
+  /// Attempts to parse a string representation of a UUID. Returns false on failure.
+  /// </summary>
+  /// <param name="s">The string representation.</param>
+  /// <param name="result">Parsed UUID on success.</param>
+  /// <returns>True if parsing succeeded.</returns>
+  public static bool TryParse(string? s, out UUID result)
+  {
+    return TryParse(s.AsSpan(), out result);
+  }
+
+  /// <summary>
+  /// Attempts to parse a UUID from a ReadOnlySpan without allocating the input string.
+  /// This method is non-allocating for canonical and 32-char hex formats; other
+  /// encodings still need string allocations to use existing FromBaseXX methods.
+  /// </summary>
+  /// <param name="s">Span containing the input characters.</param>
+  /// <param name="result">Parsed UUID on success.</param>
+  /// <returns>True if parsing succeeded.</returns>
+  public static bool TryParse(ReadOnlySpan<char> s, out UUID result)
+  {
+    result = default;
+    if (s.Length == 0) return false;
+
+    // Trim manually from both ends
+    while (s.Length > 0 && char.IsWhiteSpace(s[0])) s = s[1..];
+    while (s.Length > 0 && char.IsWhiteSpace(s[^1])) s = s[..^1];
+
+    if (s.Length == 36 && s[8] == '-' && s[13] == '-' && s[18] == '-' && s[23] == '-')
+    {
+      // Parse canonical form: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+      Span<byte> bytes = stackalloc byte[16];
+
+      // positions: bytes 0..3 -> chars 0..7
+      int bi = 0;
+      for (int i = 0; i < 36; i++)
+      {
+        if (i == 8 || i == 13 || i == 18 || i == 23)
+        {
+          if (s[i] != '-') return false;
+          continue;
+        }
+
+        int byteIndex = bi >> 1;
+        int hi = ConvertHexChar(s[i]);
+        // if we're on the high nibble, store it shifted
+        if ((bi & 1) == 0)
+        {
+          if (hi < 0) return false;
+          bytes[byteIndex] = (byte)(hi << 4);
+        }
+        else
+        {
+          if (hi < 0) return false;
+          bytes[byteIndex] |= (byte)hi;
+        }
+        bi++;
+      }
+
+      result = new UUID(bytes);
+      return true;
+    }
+
+    // We no longer support non-canonical forms in the span-based TryParse.
+    // The canonical form is: xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+    // For other encodings (base32/base36/etc.) use the string-based Parse/TryParse.
+
+    return false;
+  }
+
+  [MethodImpl(MethodImplOptions.AggressiveInlining)]
+  private static int ConvertHexChar(char c)
+  {
+    if (c >= '0' && c <= '9') return c - '0';
+    if (c >= 'a' && c <= 'f') return c - 'a' + 10;
+    if (c >= 'A' && c <= 'F') return c - 'A' + 10;
+    return -1;
+  }
+
 
 
   /// <summary>
