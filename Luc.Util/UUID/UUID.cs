@@ -4,8 +4,9 @@ using System;
 using System.Numerics;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using Luc.Util.Encoding;
 
-namespace Luc.Util;
+namespace Luc.Util.UUID;
 
 
 
@@ -13,7 +14,7 @@ namespace Luc.Util;
 /// Represents a UUID structure with support for UUIDv4 and UUIDv7.
 /// </summary>
 [StructLayout(LayoutKind.Sequential, Size = 16)]
-public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
+public readonly struct Uuid : IComparable<Uuid>, IEquatable<Uuid>, IEncodingInput, IEncodingOutput<Uuid>
 {
   private readonly byte _byte00;
   private readonly byte _byte01;
@@ -33,11 +34,11 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   private readonly byte _byte15;
 
   /// <summary>
-  /// Initializes a new instance of the <see cref="UUID"/> struct from a 16-byte span.
+  /// Initializes a new instance of the <see cref="Uuid"/> struct from a 16-byte span.
   /// </summary>
   /// <param name="bytes">A span containing exactly 16 bytes representing the UUID.</param>
   /// <exception cref="ArgumentException">Thrown if <paramref name="bytes"/> is not 16 bytes long.</exception>
-  public UUID(ReadOnlySpan<byte> bytes)
+  public Uuid(ReadOnlySpan<byte> bytes)
   {
     if (bytes.Length != 16) 
       throw new ArgumentException("Bytes span must be exactly 16 bytes.", nameof(bytes));
@@ -52,21 +53,39 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   public ReadOnlySpan<byte> Bytes => MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1));
 
   /// <summary>
+  /// Implements IEncodingInput to support encoding operations.
+  /// </summary>
+  (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+  {
+    var bytes = Bytes.ToArray();
+    return (bytes, bytes.Length * 8);
+  }
+
+  /// <summary>
+  /// Implements IEncodingOutput to support decoding operations.
+  /// </summary>
+  public static Uuid DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+  {
+    if (bytes.Length < 16) throw new ArgumentException("Decoded bytes must be at least 16 bytes.");
+    return new Uuid(bytes.Span.Slice(0, 16));
+  }
+
+  /// <summary>
   /// Compares this UUID to another UUID for ordering.
   /// </summary>
   /// <param name="other">The other UUID to compare to.</param>
   /// <returns>An integer indicating the relative order.</returns>
-  public int CompareTo(UUID other) => Bytes.SequenceCompareTo(other.Bytes);
+  public int CompareTo(Uuid other) => Bytes.SequenceCompareTo(other.Bytes);
 
   /// <summary>
   /// Determines whether this UUID is equal to another UUID.
   /// </summary>
   /// <param name="other">The other UUID to compare.</param>
   /// <returns><c>true</c> if the UUIDs are equal; otherwise, <c>false</c>.</returns>
-  public bool Equals(UUID other) => Bytes.SequenceEqual(other.Bytes);
+  public bool Equals(Uuid other) => Bytes.SequenceEqual(other.Bytes);
 
   /// <inheritdoc/>
-  public override bool Equals(object? obj) => obj is UUID other && Equals(other);
+  public override bool Equals(object? obj) => obj is Uuid other && Equals(other);
 
   /// <inheritdoc/>
   public override int GetHashCode() => BitConverter.ToInt32(Bytes.Slice(8, 4));
@@ -74,12 +93,12 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// <summary>
   /// Determines whether two UUIDs are equal.
   /// </summary>
-  public static bool operator ==(UUID left, UUID right) => left.Equals(right);
+  public static bool operator ==(Uuid left, Uuid right) => left.Equals(right);
 
   /// <summary>
   /// Determines whether two UUIDs are not equal.
   /// </summary>
-  public static bool operator !=(UUID left, UUID right) => !(left == right);
+  public static bool operator !=(Uuid left, Uuid right) => !(left == right);
 
   /// <summary>
   /// Returns the canonical string representation of the UUID (xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx).
@@ -129,7 +148,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// Generates a new random UUID (version 4).
   /// </summary>
   /// <returns>A new UUIDv4 instance.</returns>
-  public static UUID NewV4()
+  public static Uuid NewV4()
   {
     Span<byte> bytes = stackalloc byte[16];
     Random.Shared.NextBytes(bytes);
@@ -139,7 +158,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     // Set variant to RFC 4122
     bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
 
-    return new UUID(bytes);
+    return new Uuid(bytes);
   }
 
   // UUIDv7 static methods
@@ -147,7 +166,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// Generates a new UUIDv7 using the current UTC timestamp and random bytes.
   /// </summary>
   /// <returns>A new UUIDv7 instance.</returns>
-  public static UUID NewV7()
+  public static Uuid NewV7()
   {
     Span<byte> bytes = stackalloc byte[16];
     long unixEpochMs = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
@@ -163,7 +182,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     bytes[6] = (byte)((bytes[6] & 0x0F) | 0x70);
     bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
 
-    return new UUID(bytes);
+    return new Uuid(bytes);
   }
 
   /// <summary>
@@ -174,7 +193,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// <param name="seqBytes">A span of at least 2 sequence bytes.</param>
   /// <returns>A new UUIDv7 instance.</returns>
   /// <exception cref="ArgumentException">Thrown if <paramref name="randomBytes"/> or <paramref name="seqBytes"/> are too short.</exception>
-  public static UUID NewV7(long unixEpochMs, ReadOnlySpan<byte> randomBytes, ReadOnlySpan<byte> seqBytes)
+  public static Uuid NewV7(long unixEpochMs, ReadOnlySpan<byte> randomBytes, ReadOnlySpan<byte> seqBytes)
   {
     if (randomBytes.Length < 8 || seqBytes.Length < 2)
     {
@@ -201,7 +220,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
     // Variant (RFC 4122/9562)
     bytes[8] = (byte)((bytes[8] & 0x3F) | 0x80);
 
-    return new UUID(bytes);
+    return new Uuid(bytes);
   }
 
   /// <summary>
@@ -270,9 +289,9 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// Base36 (25 chars), Base35 (25 chars), Base31 (26 chars), Base32 (26 chars).
   /// </summary>
   /// <param name="s">The string representation.</param>
-  /// <returns>The parsed <see cref="UUID"/>.</returns>
+  /// <returns>The parsed <see cref="Uuid"/>.</returns>
   /// <exception cref="FormatException">Thrown when the input cannot be parsed.</exception>
-  public static UUID Parse(string s)
+  public static Uuid Parse(string s)
   {
     if (s is null) throw new FormatException("Invalid UUID string format.");
 
@@ -289,7 +308,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// <param name="s">The string representation.</param>
   /// <param name="result">Parsed UUID on success.</param>
   /// <returns>True if parsing succeeded.</returns>
-  public static bool TryParse(string? s, out UUID result)
+  public static bool TryParse(string? s, out Uuid result)
   {
     return TryParse(s.AsSpan(), out result);
   }
@@ -302,7 +321,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
   /// <param name="s">Span containing the input characters.</param>
   /// <param name="result">Parsed UUID on success.</param>
   /// <returns>True if parsing succeeded.</returns>
-  public static bool TryParse(ReadOnlySpan<char> s, out UUID result)
+  public static bool TryParse(ReadOnlySpan<char> s, out Uuid result)
   {
     result = default;
     if (s.Length == 0) return false;
@@ -342,7 +361,7 @@ public readonly struct UUID : IComparable<UUID>, IEquatable<UUID>
         bi++;
       }
 
-      result = new UUID(bytes);
+      result = new Uuid(bytes);
       return true;
     }
 
