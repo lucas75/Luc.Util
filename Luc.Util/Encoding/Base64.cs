@@ -24,8 +24,8 @@ public static class Base64
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode<T>(T value) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var (bytesMem, _) = value.EncodeToBytes();
-    return Encode(bytesMem.Span);
+    var encoded = value.EncodeToBytes();
+    return Encode(encoded.Bytes);
   }
 
   /// <summary>
@@ -60,7 +60,7 @@ public static class Base64
   public static T Decode<T>(string base64String) where T : IEncodingOutput<T>, IEncodingInput
   {
     var bytes = DecodeToBytes(base64String);
-    return T.DecodeFromBytes(new ReadOnlyMemory<byte>(bytes));
+    return T.DecodeFromBytes(bytes);
   }
 
   /// <summary>

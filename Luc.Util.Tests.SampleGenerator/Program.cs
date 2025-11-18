@@ -93,15 +93,15 @@ for( int i = 1; i <= 64; i++ )
         {
           byte {{srcBytes}};
 
-          readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+          readonly EncodingBytes IEncodingInput.EncodeToBytes()
           {
-              var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-              return (bytes, bytes.Length * 8);
+              var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+              return new EncodingBytes(bytes, bytes.Length * 8);
           }
-          public static S{{i:D2}} DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+          public static S{{i:D2}} DecodeFromBytes(ReadOnlySpan<byte> bytes)
           {
               if(bytes.Length < Unsafe.SizeOf<S{{i:D2}}>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S{{i:D2}}>()} byte.");
-              return MemoryMarshal.Read<S{{i:D2}}>(bytes.Span);
+              return MemoryMarshal.Read<S{{i:D2}}>(bytes);
           }
         }
       """);

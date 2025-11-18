@@ -14,8 +14,8 @@ public static class Base36
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode(IEncodingInput source)
   {
-    var (Bytes, Length) = source.EncodeToBytes();
-    return Encode(Bytes.Span, Length);
+    var encoded = source.EncodeToBytes();
+    return Encode(encoded.Bytes, encoded.BitLength);
   }
 
   /// <summary>
@@ -24,8 +24,8 @@ public static class Base36
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode<T>(T value) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var (bytesMem, _) = value.EncodeToBytes();
-    return Encode(bytesMem.Span);
+    var encoded = value.EncodeToBytes();
+    return Encode(encoded.Bytes);
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -63,14 +63,19 @@ public static class Base36
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static T Decode<T>(string str) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var bytes = Decode(str);
+    int bitLength = (int)Math.Ceiling(str.Length * Math.Log2(Radix));
+    int outputSize = (bitLength + 7) / 8;
+    Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static T Decode<T>(string str, int bitLength) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var bytes = Decode(str, bitLength);
+    int outputSize = (bitLength + 7) / 8;
+    Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
 
@@ -85,7 +90,19 @@ public static class Base36
   public static ReadOnlyMemory<byte> Decode(string str, int bitLength)
   {
     if (string.IsNullOrEmpty(str)) throw new ArgumentException("Base36 string cannot be null or empty.", nameof(str));
-    int outputSize = (bitLength + 7) / 8; // Convert bits to bytes (ceiling)
+    int outputSize = (bitLength + 7) / 8;
+    if (outputSize <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
+
+    byte[] resultBytes = new byte[outputSize];
+    DecodeToSpan(str, bitLength, resultBytes);
+    return new ReadOnlyMemory<byte>(resultBytes);
+  }
+
+  [MethodImpl()]
+  private static void DecodeToSpan(string str, int bitLength, Span<byte> resultBytes)
+  {
+    if (string.IsNullOrEmpty(str)) throw new ArgumentException("Base36 string cannot be null or empty.", nameof(str));
+    int outputSize = (bitLength + 7) / 8;
     if (outputSize <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
 
     Span<byte> number = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
@@ -105,7 +122,6 @@ public static class Base36
       }
     }
 
-    Span<byte> resultBytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
     resultBytes.Clear();
 
     int written = number.Length;
@@ -115,7 +131,5 @@ public static class Base36
     {
       number.Slice(number.Length - written).CopyTo(resultBytes.Slice(outputSize - written));
     }
-
-    return new ReadOnlyMemory<byte>(resultBytes.ToArray());
   }
 }

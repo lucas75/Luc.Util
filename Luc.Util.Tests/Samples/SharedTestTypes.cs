@@ -14,15 +14,15 @@ public static class SharedTestTypes
   {
     byte B0;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S01 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S01 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S01>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S01>()} byte.");
-        return MemoryMarshal.Read<S01>(bytes.Span);
+        return MemoryMarshal.Read<S01>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -30,15 +30,15 @@ public static class SharedTestTypes
   {
     byte B0,B1;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S02 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S02 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S02>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S02>()} byte.");
-        return MemoryMarshal.Read<S02>(bytes.Span);
+        return MemoryMarshal.Read<S02>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -46,15 +46,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S03 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S03 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S03>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S03>()} byte.");
-        return MemoryMarshal.Read<S03>(bytes.Span);
+        return MemoryMarshal.Read<S03>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -62,15 +62,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S04 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S04 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S04>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S04>()} byte.");
-        return MemoryMarshal.Read<S04>(bytes.Span);
+        return MemoryMarshal.Read<S04>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -78,15 +78,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S05 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S05 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S05>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S05>()} byte.");
-        return MemoryMarshal.Read<S05>(bytes.Span);
+        return MemoryMarshal.Read<S05>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -94,15 +94,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S06 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S06 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S06>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S06>()} byte.");
-        return MemoryMarshal.Read<S06>(bytes.Span);
+        return MemoryMarshal.Read<S06>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -110,15 +110,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S07 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S07 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S07>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S07>()} byte.");
-        return MemoryMarshal.Read<S07>(bytes.Span);
+        return MemoryMarshal.Read<S07>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -126,15 +126,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S08 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S08 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S08>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S08>()} byte.");
-        return MemoryMarshal.Read<S08>(bytes.Span);
+        return MemoryMarshal.Read<S08>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -142,15 +142,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S09 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S09 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S09>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S09>()} byte.");
-        return MemoryMarshal.Read<S09>(bytes.Span);
+        return MemoryMarshal.Read<S09>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -158,15 +158,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S10 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S10 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S10>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S10>()} byte.");
-        return MemoryMarshal.Read<S10>(bytes.Span);
+        return MemoryMarshal.Read<S10>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -174,15 +174,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S11 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S11 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S11>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S11>()} byte.");
-        return MemoryMarshal.Read<S11>(bytes.Span);
+        return MemoryMarshal.Read<S11>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -190,15 +190,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S12 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S12 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S12>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S12>()} byte.");
-        return MemoryMarshal.Read<S12>(bytes.Span);
+        return MemoryMarshal.Read<S12>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -206,15 +206,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S13 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S13 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S13>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S13>()} byte.");
-        return MemoryMarshal.Read<S13>(bytes.Span);
+        return MemoryMarshal.Read<S13>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -222,15 +222,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S14 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S14 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S14>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S14>()} byte.");
-        return MemoryMarshal.Read<S14>(bytes.Span);
+        return MemoryMarshal.Read<S14>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -238,15 +238,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S15 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S15 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S15>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S15>()} byte.");
-        return MemoryMarshal.Read<S15>(bytes.Span);
+        return MemoryMarshal.Read<S15>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -254,15 +254,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S16 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S16 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S16>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S16>()} byte.");
-        return MemoryMarshal.Read<S16>(bytes.Span);
+        return MemoryMarshal.Read<S16>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -270,15 +270,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S17 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S17 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S17>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S17>()} byte.");
-        return MemoryMarshal.Read<S17>(bytes.Span);
+        return MemoryMarshal.Read<S17>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -286,15 +286,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S18 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S18 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S18>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S18>()} byte.");
-        return MemoryMarshal.Read<S18>(bytes.Span);
+        return MemoryMarshal.Read<S18>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -302,15 +302,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S19 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S19 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S19>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S19>()} byte.");
-        return MemoryMarshal.Read<S19>(bytes.Span);
+        return MemoryMarshal.Read<S19>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -318,15 +318,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S20 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S20 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S20>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S20>()} byte.");
-        return MemoryMarshal.Read<S20>(bytes.Span);
+        return MemoryMarshal.Read<S20>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -334,15 +334,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S21 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S21 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S21>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S21>()} byte.");
-        return MemoryMarshal.Read<S21>(bytes.Span);
+        return MemoryMarshal.Read<S21>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -350,15 +350,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S22 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S22 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S22>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S22>()} byte.");
-        return MemoryMarshal.Read<S22>(bytes.Span);
+        return MemoryMarshal.Read<S22>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -366,15 +366,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S23 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S23 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S23>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S23>()} byte.");
-        return MemoryMarshal.Read<S23>(bytes.Span);
+        return MemoryMarshal.Read<S23>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -382,15 +382,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S24 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S24 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S24>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S24>()} byte.");
-        return MemoryMarshal.Read<S24>(bytes.Span);
+        return MemoryMarshal.Read<S24>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -398,15 +398,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S25 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S25 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S25>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S25>()} byte.");
-        return MemoryMarshal.Read<S25>(bytes.Span);
+        return MemoryMarshal.Read<S25>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -414,15 +414,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S26 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S26 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S26>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S26>()} byte.");
-        return MemoryMarshal.Read<S26>(bytes.Span);
+        return MemoryMarshal.Read<S26>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -430,15 +430,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S27 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S27 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S27>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S27>()} byte.");
-        return MemoryMarshal.Read<S27>(bytes.Span);
+        return MemoryMarshal.Read<S27>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -446,15 +446,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S28 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S28 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S28>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S28>()} byte.");
-        return MemoryMarshal.Read<S28>(bytes.Span);
+        return MemoryMarshal.Read<S28>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -462,15 +462,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S29 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S29 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S29>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S29>()} byte.");
-        return MemoryMarshal.Read<S29>(bytes.Span);
+        return MemoryMarshal.Read<S29>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -478,15 +478,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S30 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S30 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S30>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S30>()} byte.");
-        return MemoryMarshal.Read<S30>(bytes.Span);
+        return MemoryMarshal.Read<S30>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -494,15 +494,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S31 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S31 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S31>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S31>()} byte.");
-        return MemoryMarshal.Read<S31>(bytes.Span);
+        return MemoryMarshal.Read<S31>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -510,15 +510,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S32 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S32 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S32>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S32>()} byte.");
-        return MemoryMarshal.Read<S32>(bytes.Span);
+        return MemoryMarshal.Read<S32>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -526,15 +526,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S33 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S33 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S33>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S33>()} byte.");
-        return MemoryMarshal.Read<S33>(bytes.Span);
+        return MemoryMarshal.Read<S33>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -542,15 +542,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S34 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S34 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S34>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S34>()} byte.");
-        return MemoryMarshal.Read<S34>(bytes.Span);
+        return MemoryMarshal.Read<S34>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -558,15 +558,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S35 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S35 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S35>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S35>()} byte.");
-        return MemoryMarshal.Read<S35>(bytes.Span);
+        return MemoryMarshal.Read<S35>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -574,15 +574,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S36 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S36 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S36>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S36>()} byte.");
-        return MemoryMarshal.Read<S36>(bytes.Span);
+        return MemoryMarshal.Read<S36>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -590,15 +590,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S37 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S37 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S37>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S37>()} byte.");
-        return MemoryMarshal.Read<S37>(bytes.Span);
+        return MemoryMarshal.Read<S37>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -606,15 +606,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S38 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S38 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S38>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S38>()} byte.");
-        return MemoryMarshal.Read<S38>(bytes.Span);
+        return MemoryMarshal.Read<S38>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -622,15 +622,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S39 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S39 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S39>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S39>()} byte.");
-        return MemoryMarshal.Read<S39>(bytes.Span);
+        return MemoryMarshal.Read<S39>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -638,15 +638,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S40 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S40 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S40>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S40>()} byte.");
-        return MemoryMarshal.Read<S40>(bytes.Span);
+        return MemoryMarshal.Read<S40>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -654,15 +654,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S41 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S41 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S41>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S41>()} byte.");
-        return MemoryMarshal.Read<S41>(bytes.Span);
+        return MemoryMarshal.Read<S41>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -670,15 +670,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S42 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S42 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S42>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S42>()} byte.");
-        return MemoryMarshal.Read<S42>(bytes.Span);
+        return MemoryMarshal.Read<S42>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -686,15 +686,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S43 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S43 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S43>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S43>()} byte.");
-        return MemoryMarshal.Read<S43>(bytes.Span);
+        return MemoryMarshal.Read<S43>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -702,15 +702,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S44 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S44 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S44>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S44>()} byte.");
-        return MemoryMarshal.Read<S44>(bytes.Span);
+        return MemoryMarshal.Read<S44>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -718,15 +718,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S45 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S45 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S45>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S45>()} byte.");
-        return MemoryMarshal.Read<S45>(bytes.Span);
+        return MemoryMarshal.Read<S45>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -734,15 +734,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S46 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S46 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S46>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S46>()} byte.");
-        return MemoryMarshal.Read<S46>(bytes.Span);
+        return MemoryMarshal.Read<S46>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -750,15 +750,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S47 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S47 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S47>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S47>()} byte.");
-        return MemoryMarshal.Read<S47>(bytes.Span);
+        return MemoryMarshal.Read<S47>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -766,15 +766,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S48 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S48 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S48>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S48>()} byte.");
-        return MemoryMarshal.Read<S48>(bytes.Span);
+        return MemoryMarshal.Read<S48>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -782,15 +782,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S49 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S49 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S49>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S49>()} byte.");
-        return MemoryMarshal.Read<S49>(bytes.Span);
+        return MemoryMarshal.Read<S49>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -798,15 +798,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S50 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S50 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S50>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S50>()} byte.");
-        return MemoryMarshal.Read<S50>(bytes.Span);
+        return MemoryMarshal.Read<S50>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -814,15 +814,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S51 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S51 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S51>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S51>()} byte.");
-        return MemoryMarshal.Read<S51>(bytes.Span);
+        return MemoryMarshal.Read<S51>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -830,15 +830,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S52 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S52 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S52>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S52>()} byte.");
-        return MemoryMarshal.Read<S52>(bytes.Span);
+        return MemoryMarshal.Read<S52>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -846,15 +846,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S53 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S53 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S53>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S53>()} byte.");
-        return MemoryMarshal.Read<S53>(bytes.Span);
+        return MemoryMarshal.Read<S53>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -862,15 +862,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S54 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S54 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S54>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S54>()} byte.");
-        return MemoryMarshal.Read<S54>(bytes.Span);
+        return MemoryMarshal.Read<S54>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -878,15 +878,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S55 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S55 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S55>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S55>()} byte.");
-        return MemoryMarshal.Read<S55>(bytes.Span);
+        return MemoryMarshal.Read<S55>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -894,15 +894,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S56 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S56 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S56>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S56>()} byte.");
-        return MemoryMarshal.Read<S56>(bytes.Span);
+        return MemoryMarshal.Read<S56>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -910,15 +910,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S57 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S57 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S57>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S57>()} byte.");
-        return MemoryMarshal.Read<S57>(bytes.Span);
+        return MemoryMarshal.Read<S57>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -926,15 +926,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S58 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S58 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S58>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S58>()} byte.");
-        return MemoryMarshal.Read<S58>(bytes.Span);
+        return MemoryMarshal.Read<S58>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -942,15 +942,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S59 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S59 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S59>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S59>()} byte.");
-        return MemoryMarshal.Read<S59>(bytes.Span);
+        return MemoryMarshal.Read<S59>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -958,15 +958,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S60 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S60 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S60>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S60>()} byte.");
-        return MemoryMarshal.Read<S60>(bytes.Span);
+        return MemoryMarshal.Read<S60>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -974,15 +974,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S61 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S61 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S61>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S61>()} byte.");
-        return MemoryMarshal.Read<S61>(bytes.Span);
+        return MemoryMarshal.Read<S61>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -990,15 +990,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S62 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S62 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S62>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S62>()} byte.");
-        return MemoryMarshal.Read<S62>(bytes.Span);
+        return MemoryMarshal.Read<S62>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -1006,15 +1006,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61,B62;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S63 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S63 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S63>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S63>()} byte.");
-        return MemoryMarshal.Read<S63>(bytes.Span);
+        return MemoryMarshal.Read<S63>(bytes);
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
@@ -1022,15 +1022,15 @@ public static class SharedTestTypes
   {
     byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61,B62,B63;
 
-    readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+    readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
-        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
-        return (bytes, bytes.Length * 8);
+        var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */));
+        return new EncodingBytes(bytes, bytes.Length * 8);
     }
-    public static S64 DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+    public static S64 DecodeFromBytes(ReadOnlySpan<byte> bytes)
     {
         if(bytes.Length < Unsafe.SizeOf<S64>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S64>()} byte.");
-        return MemoryMarshal.Read<S64>(bytes.Span);
+        return MemoryMarshal.Read<S64>(bytes);
     }
   }
 

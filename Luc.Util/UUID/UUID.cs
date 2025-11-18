@@ -55,19 +55,18 @@ public readonly struct Uuid : IComparable<Uuid>, IEquatable<Uuid>, IEncodingInpu
   /// <summary>
   /// Implements IEncodingInput to support encoding operations.
   /// </summary>
-  (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+  EncodingBytes IEncodingInput.EncodeToBytes()
   {
-    var bytes = Bytes.ToArray();
-    return (bytes, bytes.Length * 8);
+    return new EncodingBytes(Bytes, 16 * 8);
   }
 
   /// <summary>
   /// Implements IEncodingOutput to support decoding operations.
   /// </summary>
-  public static Uuid DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+  public static Uuid DecodeFromBytes(ReadOnlySpan<byte> bytes)
   {
     if (bytes.Length < 16) throw new ArgumentException("Decoded bytes must be at least 16 bytes.");
-    return new Uuid(bytes.Span.Slice(0, 16));
+    return new Uuid(bytes.Slice(0, 16));
   }
 
   /// <summary>

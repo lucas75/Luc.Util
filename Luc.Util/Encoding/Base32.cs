@@ -15,8 +15,8 @@ public static class Base32
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode(IEncodingInput source)
   {
-    var (Bytes, Length) = source.EncodeToBytes();
-    return Encode(Bytes.Span, Length);
+    var encoded = source.EncodeToBytes();
+    return Encode(encoded.Bytes, encoded.BitLength);
   }
 
   /// <summary>
@@ -25,8 +25,8 @@ public static class Base32
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode<T>(T value) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var (bytesMem, _) = value.EncodeToBytes();
-    return Encode(bytesMem.Span);
+    var encoded = value.EncodeToBytes();
+    return Encode(encoded.Bytes);
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -67,14 +67,21 @@ public static class Base32
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static T Decode<T>(string str) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var bytes = Decode(str);
+    int bitLength = (int)Math.Ceiling(str.Length * Math.Log2(Radix));
+    int outputSize = (bitLength + 7) / 8;
+    Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    bytes.Clear();
+    DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static T Decode<T>(string str, int bitLength) where T : IEncodingOutput<T>, IEncodingInput
   {
-    var bytes = Decode(str, bitLength);
+    int outputSize = (bitLength + 7) / 8;
+    Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    bytes.Clear();
+    DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
 
@@ -92,43 +99,30 @@ public static class Base32
     int outputSize = (bitLength + 7) / 8; 
     if (outputSize <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
 
-    ReadOnlyMemory<byte> result;
-    if (outputSize <= 128)
-    {
-      Span<byte> bytes = stackalloc byte[outputSize];
-      bytes.Clear();
-      DecodeToSpan(str, bitLength, bytes);
-      result = new ReadOnlyMemory<byte>(bytes.ToArray());
-    }
-    else
-    {
-      byte[] byteArray = new byte[outputSize];
-      Span<byte> bytes = byteArray;
-      DecodeToSpan(str, bitLength, bytes);
-      result = new ReadOnlyMemory<byte>(byteArray);
-    }
+    byte[] byteArray = new byte[outputSize];
+    DecodeToSpan(str, bitLength, byteArray);
+    return new ReadOnlyMemory<byte>(byteArray);
+  }
 
-    return result;
-
-    static void DecodeToSpan(string str, int bitLength, Span<byte> bytes)
+  [MethodImpl()]
+  private static void DecodeToSpan(string str, int bitLength, Span<byte> bytes)
+  {
+    int bitIndex = 0;
+    foreach (char c in str.Reverse())
     {
-      int bitIndex = 0;
-      foreach (char c in str.Reverse())
+      int charValue = Alphabet.IndexOf(char.ToLowerInvariant(c));
+      if (charValue == -1) throw new FormatException($"Invalid Base32 character '{c}'.");
+
+      for (int j = 0; j < 5; j++)
       {
-        int charValue = Alphabet.IndexOf(char.ToLowerInvariant(c));
-        if (charValue == -1) throw new FormatException($"Invalid Base32 character '{c}'.");
-
-        for (int j = 0; j < 5; j++)
+        if (bitIndex >= bitLength) break;
+        int byteIndex = bitIndex / 8;
+        int bitInByte = bitIndex % 8;
+        if ((charValue & (1 << j)) != 0)
         {
-          if (bitIndex >= bitLength) break;
-          int byteIndex = bitIndex / 8;
-          int bitInByte = bitIndex % 8;
-          if ((charValue & (1 << j)) != 0)
-          {
-            bytes[byteIndex] |= (byte)(1 << bitInByte);
-          }
-          bitIndex++;
+          bytes[byteIndex] |= (byte)(1 << bitInByte);
         }
+        bitIndex++;
       }
     }
   }
