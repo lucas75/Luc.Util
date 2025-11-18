@@ -6,7 +6,7 @@ Unit tests for the Luc.Util core library. This project ensures the correctness a
 
 - Validates UUIDv4 and UUIDv7 creation and encoding
 - Tests conversion between different UUID formats
- - Ensures round-trip integrity for Base36, Base35, Base32, Base31, and Base64 encodings
+ - Ensures round-trip integrity for Base36, Base32, and Base64 encodings
 - Includes sample-based tests for UUIDv7 with Medo.Uuid7 test data
 - Validates timestamp extraction from UUIDv7 against sample data
  - Validates URL-safe Base64 encode/decode (22-char) independently of Medo Id22
