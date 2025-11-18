@@ -43,9 +43,11 @@ System.IO.Directory.CreateDirectory(outputDir);
 
 System.IO.File.WriteAllText
 (
-  "Luc.Util.Tests/Generated/Uuid7TestSamples.cs",
+  "Luc.Util.Tests/Samples/Uuid7TestSamples.cs",
   $$"""
-  namespace Luc.Util.Tests.Generated;
+  // <generated>Do not alter this class</generated>
+
+  namespace Luc.Util.Tests.Samples;
   
   public static class Uuid7TestSamples
   {
@@ -63,6 +65,110 @@ System.IO.File.WriteAllText
   {{srcRecords}}
 
     ];
+  }
+  """
+);
+
+
+var srcSharedTypes = new StringBuilder();
+var srcSharedTypeInstances = new StringBuilder();
+var srcSharedRandomCases = new StringBuilder();
+var srcSharedEmptyCases = new StringBuilder();
+var srcTypes = new StringBuilder();
+
+
+for( int i = 1; i <= 64; i++ )
+{
+  var srcBytes = new StringBuilder();
+  for( int b = 0; b < i; b++ )
+  {
+    srcBytes.Append($"B{b},");
+  }
+  srcBytes.Length -= 1;
+
+  srcSharedTypes.AppendLine(
+      $$"""
+        [StructLayout(LayoutKind.Sequential, Pack=1)]
+        public struct S{{i:D2}} : IEncodingInput, IEncodingOutput<S{{i:D2}}>
+        {
+          byte {{srcBytes}};
+
+          readonly (ReadOnlyMemory<byte> Bytes, int Length) IEncodingInput.EncodeToBytes()
+          {
+              var bytes = MemoryMarshal.AsBytes(MemoryMarshal.CreateReadOnlySpan(ref Unsafe.AsRef(in this), 1 /* elements */)).ToArray();
+              return (bytes, bytes.Length * 8);
+          }
+          public static S{{i:D2}} DecodeFromBytes(ReadOnlyMemory<byte> bytes)
+          {
+              if(bytes.Length < Unsafe.SizeOf<S{{i:D2}}>()) throw new ArgumentException($"Decoded bytes must be exactly {Unsafe.SizeOf<S{{i:D2}}>()} byte.");
+              return MemoryMarshal.Read<S{{i:D2}}>(bytes.Span);
+          }
+        }
+      """);
+ 
+  srcSharedTypeInstances.AppendLine(
+      $$"""
+            new S{{i:D2}}(),         
+      """);
+
+  srcSharedRandomCases.AppendLine(
+      $$"""       
+            case {{i}}: b = new byte[{{i}}]; rng.NextBytes(b); return S{{i:D2}}.DecodeFromBytes(b); 
+      """);
+  srcSharedEmptyCases.AppendLine(
+      $$"""       
+            case {{i}}: return new S{{i:D2}}(); 
+      """);
+
+  srcTypes.AppendLine(
+      $$"""
+            typeof(SharedTestTypes.S{{i:D2}}),
+      """);
+}
+
+
+
+System.IO.File.WriteAllText
+(
+  "Luc.Util.Tests/Samples/SharedTestTypes.cs",
+  $$"""
+  // <generated>Do not alter this class</generated>
+  using System;
+  using System.Runtime.InteropServices;
+  using System.Runtime.CompilerServices;
+  using Luc.Util;
+  using Luc.Util.Encoding;
+  
+  namespace Luc.Util.Tests.Samples;
+  
+  public static class SharedTestTypes
+  {
+  {{srcSharedTypes}}
+
+    public static readonly IEncodingInput[] Samples = [ 
+  {{srcSharedTypeInstances}}
+    ];
+
+    public static readonly Type[] Types = [
+  {{srcTypes}}
+    ];
+
+    public static IEncodingInput Empty(int size)
+    {
+      switch(size) {
+  {{srcSharedEmptyCases}}
+        default: throw new ArgumentException("Size not supported.");
+      }  
+    }
+
+    public static IEncodingInput Random(int size, Random rng)
+    {
+      byte[] b;
+      switch(size) {
+  {{srcSharedRandomCases}}
+        default: throw new ArgumentException("Size not supported.");
+      }  
+    } 
   }
   """
 );
