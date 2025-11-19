@@ -155,4 +155,3 @@ public static class UuidTestSamples
     "thisisnothexatall",                      // <- Not hex at all
   ];
 }
-
