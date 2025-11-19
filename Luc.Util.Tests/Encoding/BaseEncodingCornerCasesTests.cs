@@ -25,29 +25,23 @@ public class BaseEncodingCornerCasesTests
       var type = SharedTestTypes.Types[size - 1];
 
       // Base36
-      { 
-        var encodeMethod = GetEncodeMethod(typeof(Base36Sortable), type);
-        var enc = encodeMethod.Invoke(null, new object[] { instance });
-        var decodeMethod = GetDecodeMethod(typeof(Base36Sortable), type, 2);
-        var dec = decodeMethod.Invoke(null, new object[] { enc, size * 8 });
+      {
+        var enc = BaseEncodingUtils.InvokeEncode(typeof(Base36Sortable), instance);
+        var dec = BaseEncodingUtils.InvokeDecodeWithLength(typeof(Base36Sortable), instance, enc, size * 8);
         Assert.Equal(instance, dec);
       }
 
       // Base32
       {
-        var encodeMethod = GetEncodeMethod(typeof(Base32Sortable), type);
-        var enc = encodeMethod.Invoke(null, new object[] { instance });
-        var decodeMethod = GetDecodeMethod(typeof(Base32Sortable), type, 2);
-        var dec = decodeMethod.Invoke(null, new object[] { enc, size * 8 });
+        var enc = BaseEncodingUtils.InvokeEncode(typeof(Base32Sortable), instance);
+        var dec = BaseEncodingUtils.InvokeDecodeWithLength(typeof(Base32Sortable), instance, enc, size * 8);
         Assert.Equal(instance, dec);
       }
 
       // Base64
       {
-        var encodeMethod = GetEncodeMethod(typeof(Base64), type);
-        var enc = encodeMethod.Invoke(null, new object[] { instance });
-        var decodeMethod = GetDecodeMethod(typeof(Base64), type, 1, typeof(string));
-        var dec = decodeMethod.Invoke(null, new object[] { enc });
+        var enc = BaseEncodingUtils.InvokeEncode(typeof(Base64), instance);
+        var dec = BaseEncodingUtils.InvokeDecode(typeof(Base64), instance, enc);
         Assert.Equal(instance, dec);
       }
     }
@@ -122,28 +116,10 @@ public class BaseEncodingCornerCasesTests
       for (int i = 0; i < 16; i++)
       {
         var randomInstance = SharedTestTypes.Random(size, rng);
-        var type = Types[size - 1];
-        var encodeMethod = GetEncodeMethod(typeof(Base64), type);
-        var enc = encodeMethod.Invoke(null, new object[] { randomInstance })!;
-        var decodeMethod = GetDecodeMethod(typeof(Base64), type, 1, typeof(string));
-        var dec = decodeMethod.Invoke(null, new object[] { enc })!;
+        var encStr = BaseEncodingUtils.InvokeEncode(typeof(Base64), (IEncodingInput)randomInstance);
+        var dec = BaseEncodingUtils.InvokeDecode(typeof(Base64), (IEncodingInput)randomInstance, encStr);
         Assert.Equal(randomInstance, dec);
       }
     }
   }
-
-  private static MethodInfo GetEncodeMethod(Type classType, Type type) =>
-    classType.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
-      .Where(m => m.Name == "Encode" && m.IsGenericMethod && m.GetParameters().Length == 1)
-      .Single()!
-      .MakeGenericMethod(type);
-
-  private static MethodInfo GetDecodeMethod(Type classType, Type type, int paramCount, Type? paramType = null) =>
-    classType.GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static)
-      .Where(m => m.Name == "Decode" && m.IsGenericMethod && m.GetParameters().Length == paramCount &&
-                  (paramType == null || m.GetParameters()[0].ParameterType == paramType))
-      .Single()!
-      .MakeGenericMethod(type);
-
-  private static readonly Type[] Types = SharedTestTypes.Types;
 }
