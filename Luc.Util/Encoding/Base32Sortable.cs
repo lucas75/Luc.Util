@@ -4,12 +4,13 @@ using System.Runtime.CompilerServices;
 namespace Luc.Util.Encoding;
 
 /// <summary>
-/// Provides Base36 encoding and decoding using alphabet 0-9, a-z.
+/// Provides Base32 encoding and decoding using alphabet 0-9, b-z (excluding a, i, l, o).
+/// Uses a bit-manipulation algorithm, not compatible with the old BigInteger-based encoding.
 /// </summary>
-public static class Base36
+public static class Base32Sortable
 {
-  private const string Alphabet = "0123456789abcdefghijklmnopqrstuvwxyz";
-  private const int Radix = 36;
+  private const string Alphabet = "0123456789bcdefghjkmnpqrstuvwxyz";
+  private const int Radix = 32;
 
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode(IEncodingInput source)
@@ -19,7 +20,7 @@ public static class Base36
   }
 
   /// <summary>
-  /// Encodes a structure to Base36.
+  /// Encodes a structure to Base32.
   /// </summary>
   [MethodImpl(MethodImplOptions.AggressiveInlining)]
   public static string Encode<T>(T value) where T : IEncodingOutput<T>, IEncodingInput
@@ -37,24 +38,27 @@ public static class Base36
   [MethodImpl()]
   public static string Encode(ReadOnlySpan<byte> bytes, int bitLength)
   {
-    int charCount = (int)Math.Ceiling(bitLength / Math.Log2(Radix));
-    if (charCount <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
+    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(bitLength);
 
+    int charCount = (int)Math.Ceiling(bitLength / 5.0);
     Span<char> chars = charCount <= 128 ? stackalloc char[charCount] : new char[charCount];
 
-    Span<byte> number = stackalloc byte[bytes.Length];
-    bytes.CopyTo(number);
-
-    for (int i = charCount - 1; i >= 0; i--)
+    int bitIndex = 0;
+    for (int i = 0; i < charCount; i++)
     {
-      int remainder = 0;
-      for (int j = 0; j < number.Length; j++)
+      int value = 0;
+      for (int j = 0; j < 5; j++)
       {
-        int temp = remainder * 256 + number[j];
-        number[j] = (byte)(temp / Radix);
-        remainder = temp % Radix;
+        if (bitIndex >= bitLength) break;
+        int byteIndex = bitIndex / 8;
+        int bitInByte = bitIndex % 8; // LSB first
+        if ((bytes[byteIndex] & (1 << bitInByte)) != 0)
+        {
+          value |= (1 << j);
+        }
+        bitIndex++;
       }
-      chars[i] = Alphabet[remainder];
+      chars[charCount - 1 - i] = Alphabet[value];
     }
 
     return new string(chars);
@@ -66,6 +70,7 @@ public static class Base36
     int bitLength = (int)Math.Ceiling(str.Length * Math.Log2(Radix));
     int outputSize = (bitLength + 7) / 8;
     Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    bytes.Clear();
     DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
@@ -75,6 +80,7 @@ public static class Base36
   {
     int outputSize = (bitLength + 7) / 8;
     Span<byte> bytes = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
+    bytes.Clear();
     DecodeToSpan(str, bitLength, bytes);
     return T.DecodeFromBytes(bytes);
   }
@@ -89,47 +95,35 @@ public static class Base36
   [MethodImpl()]
   public static ReadOnlyMemory<byte> Decode(string str, int bitLength)
   {
-    if (string.IsNullOrEmpty(str)) throw new ArgumentException("Base36 string cannot be null or empty.", nameof(str));
-    int outputSize = (bitLength + 7) / 8;
+    if (string.IsNullOrEmpty(str)) throw new ArgumentException("Base32 string cannot be null or empty.", nameof(str));
+    int outputSize = (bitLength + 7) / 8; 
     if (outputSize <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
 
-    byte[] resultBytes = new byte[outputSize];
-    DecodeToSpan(str, bitLength, resultBytes);
-    return new ReadOnlyMemory<byte>(resultBytes);
+    byte[] byteArray = new byte[outputSize];
+    DecodeToSpan(str, bitLength, byteArray);
+    return new ReadOnlyMemory<byte>(byteArray);
   }
 
   [MethodImpl()]
-  private static void DecodeToSpan(string str, int bitLength, Span<byte> resultBytes)
+  private static void DecodeToSpan(string str, int bitLength, Span<byte> bytes)
   {
-    if (string.IsNullOrEmpty(str)) throw new ArgumentException("Base36 string cannot be null or empty.", nameof(str));
-    int outputSize = (bitLength + 7) / 8;
-    if (outputSize <= 0) throw new ArgumentOutOfRangeException(nameof(bitLength));
-
-    Span<byte> number = outputSize <= 128 ? stackalloc byte[outputSize] : new byte[outputSize];
-    number.Clear();
-
-    foreach (char c in str)
+    int bitIndex = 0;
+    foreach (char c in str.Reverse())
     {
       int charValue = Alphabet.IndexOf(char.ToLowerInvariant(c));
-      if (charValue == -1) throw new FormatException($"Invalid Base36 character '{c}'.");
+      if (charValue == -1) throw new FormatException($"Invalid Base32 character '{c}'.");
 
-      int carry = charValue;
-      for (int j = number.Length - 1; j >= 0; j--)
+      for (int j = 0; j < 5; j++)
       {
-        int temp = number[j] * Radix + carry;
-        number[j] = (byte)(temp % 256);
-        carry = temp / 256;
+        if (bitIndex >= bitLength) break;
+        int byteIndex = bitIndex / 8;
+        int bitInByte = bitIndex % 8;
+        if ((charValue & (1 << j)) != 0)
+        {
+          bytes[byteIndex] |= (byte)(1 << bitInByte);
+        }
+        bitIndex++;
       }
-    }
-
-    resultBytes.Clear();
-
-    int written = number.Length;
-    while (written > 1 && number[number.Length - written] == 0) written--;
-
-    if (written > 0)
-    {
-      number.Slice(number.Length - written).CopyTo(resultBytes.Slice(outputSize - written));
     }
   }
 }

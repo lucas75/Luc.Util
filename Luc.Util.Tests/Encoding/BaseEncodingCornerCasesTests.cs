@@ -25,18 +25,18 @@ public class BaseEncodingCornerCasesTests
 
       // Base36
       { 
-        var encodeMethod = GetEncodeMethod(typeof(Base36), type);
+        var encodeMethod = GetEncodeMethod(typeof(Base36Sortable), type);
         var enc = encodeMethod.Invoke(null, new object[] { instance });
-        var decodeMethod = GetDecodeMethod(typeof(Base36), type, 2);
+        var decodeMethod = GetDecodeMethod(typeof(Base36Sortable), type, 2);
         var dec = decodeMethod.Invoke(null, new object[] { enc, size * 8 });
         Assert.Equal(instance, dec);
       }
 
       // Base32
       {
-        var encodeMethod = GetEncodeMethod(typeof(Base32), type);
+        var encodeMethod = GetEncodeMethod(typeof(Base32Sortable), type);
         var enc = encodeMethod.Invoke(null, new object[] { instance });
-        var decodeMethod = GetDecodeMethod(typeof(Base32), type, 2);
+        var decodeMethod = GetDecodeMethod(typeof(Base32Sortable), type, 2);
         var dec = decodeMethod.Invoke(null, new object[] { enc, size * 8 });
         Assert.Equal(instance, dec);
       }
@@ -67,26 +67,26 @@ public class BaseEncodingCornerCasesTests
 
     // Base36
     {
-      var enc = Base36.Encode(s8);
-      var dec = Base36.Decode<SharedTestTypes.S08>(enc, 64);
+      var enc = Base36Sortable.Encode(s8);
+      var dec = Base36Sortable.Decode<SharedTestTypes.S08>(enc, 64);
       Assert.Equal(s8, dec);
     }
 
     // Base32
     {
-      var enc = Base32.Encode(s8);
-      var dec = Base32.Decode<SharedTestTypes.S08>(enc, 64);
+      var enc = Base32Sortable.Encode(s8);
+      var dec = Base32Sortable.Decode<SharedTestTypes.S08>(enc, 64);
       Assert.Equal(s8, dec);
     }
 
     {
-      var enc = Base32.Encode(s16);
-      var dec = Base32.Decode<SharedTestTypes.S16>(enc, 128);
+      var enc = Base32Sortable.Encode(s16);
+      var dec = Base32Sortable.Decode<SharedTestTypes.S16>(enc, 128);
       Assert.Equal(s16, dec);
     }
     {
-      var enc = Base32.Encode(s24);
-      var dec = Base32.Decode<SharedTestTypes.S24>(enc, 192);
+      var enc = Base32Sortable.Encode(s24);
+      var dec = Base32Sortable.Decode<SharedTestTypes.S24>(enc, 192);
       Assert.Equal(s24, dec);
     }
   }

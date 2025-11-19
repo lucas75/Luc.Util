@@ -22,9 +22,9 @@ public class BaseEncodingRoundTripTests
             for (int i = 0; i < 8; i++)
             {
                 var randomInstance = SharedTestTypes.Random(size, rng);
-                string encoded = Base36.Encode((IEncodingInput)randomInstance);
+                string encoded = Base36Sortable.Encode((IEncodingInput)randomInstance);
                 var type = Types[size - 1];
-                var decodeMethod = typeof(Base36).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).Where(m => m.Name == "Decode" && m.IsGenericMethod && m.GetParameters().Length == 2).First()!.MakeGenericMethod(type);
+                var decodeMethod = typeof(Base36Sortable).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).Where(m => m.Name == "Decode" && m.IsGenericMethod && m.GetParameters().Length == 2).First()!.MakeGenericMethod(type);
                 var recreated = decodeMethod.Invoke(null, new object[] { encoded, size * 8 });
                 Assert.Equal(randomInstance, recreated);
                 Assert.Equal((int)Math.Ceiling(size * 8 / Math.Log2(36)), encoded.Length);
@@ -41,9 +41,9 @@ public class BaseEncodingRoundTripTests
             for (int i = 0; i < 8; i++)
             {
                 var randomInstance = SharedTestTypes.Random(size, rng);
-                string encoded = Base32.Encode((IEncodingInput)randomInstance);
+                string encoded = Base32Sortable.Encode((IEncodingInput)randomInstance);
                 var type = Types[size - 1];
-                var decodeMethod = typeof(Base32).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).Where(m => m.Name == "Decode" && m.IsGenericMethod && m.GetParameters().Length == 2).First()!.MakeGenericMethod(type);
+                var decodeMethod = typeof(Base32Sortable).GetMethods(System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static).Where(m => m.Name == "Decode" && m.IsGenericMethod && m.GetParameters().Length == 2).First()!.MakeGenericMethod(type);
                 var recreated = decodeMethod.Invoke(null, new object[] { encoded, size * 8 });
                 Assert.Equal(randomInstance, recreated);
                 Assert.Equal((int)Math.Ceiling(size * 8 / Math.Log2(32)), encoded.Length);

@@ -96,7 +96,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = Uuid.Parse(sample.Canonical);
-            string base36 = Base36.Encode(uuid);
+            string base36 = Base36Sortable.Encode(uuid);
             Assert.Equal(25, base36.Length);
         }
     }
@@ -144,7 +144,7 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = Uuid.Parse(sample.Canonical);
-            string base32 = Base32.Encode(uuid);
+            string base32 = Base32Sortable.Encode(uuid);
             Assert.Equal(26, base32.Length);
         }
     }
@@ -158,8 +158,8 @@ public class UUIDTests
         foreach (var sample in UuidTestSamples.Samples)
         {
             var uuid = Uuid.Parse(sample.Canonical);
-            string base32 = Base32.Encode(uuid);
-            var recreatedUuid = Base32.Decode<Uuid>(base32, 128);
+            string base32 = Base32Sortable.Encode(uuid);
+            var recreatedUuid = Base32Sortable.Decode<Uuid>(base32, 128);
             Assert.Equal(uuid, recreatedUuid);
         }
     }
@@ -359,8 +359,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = Uuid.Parse(sample.UUID);
-            var base36 = Base36.Encode(uuid);
-            var recreated = Base36.Decode<Uuid>(base36, 128);
+            var base36 = Base36Sortable.Encode(uuid);
+            var recreated = Base36Sortable.Decode<Uuid>(base36, 128);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -374,8 +374,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = Uuid.Parse(sample.UUID);
-            var base32 = Base32.Encode(uuid);
-            var recreated = Base32.Decode<Uuid>(base32, 128);
+            var base32 = Base32Sortable.Encode(uuid);
+            var recreated = Base32Sortable.Decode<Uuid>(base32, 128);
             Assert.Equal(uuid, recreated);
         }
     }
@@ -394,7 +394,7 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = Uuid.Parse(sample.UUID);
-            var ourBase32 = Base32.Encode(uuid);
+            var ourBase32 = Base32Sortable.Encode(uuid);
             var medoId26 = sample.MedoId26;
             
             // Verify both are 26 characters
@@ -418,8 +418,8 @@ public class UUIDTests
         foreach (var sample in Uuid7TestSamples.Uuids)
         {
             var uuid = Uuid.Parse(sample.UUID);
-            var base32 = Base32.Encode(uuid);
-            var recreated = Base32.Decode<Uuid>(base32, 128);
+            var base32 = Base32Sortable.Encode(uuid);
+            var recreated = Base32Sortable.Decode<Uuid>(base32, 128);
             Assert.Equal(uuid, recreated);
         }
     }
