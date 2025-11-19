@@ -6,6 +6,7 @@ using System.Runtime.CompilerServices;
 using System.Reflection;
 using Xunit;
 using Luc.Util.Encoding;
+using Luc.Util.UUID;
 using Luc.Util.Tests.Samples;
 using System.Linq;
 
@@ -48,6 +49,27 @@ public class BaseEncodingCornerCasesTests
         var decodeMethod = GetDecodeMethod(typeof(Base64), type, 1, typeof(string));
         var dec = decodeMethod.Invoke(null, new object[] { enc });
         Assert.Equal(instance, dec);
+      }
+    }
+  }
+
+  [Fact]
+  public void Base32_Uuid7Samples_UsesSameAlphabetAsMedoId26()
+  {
+    foreach (var sample in Uuid7TestSamples.Uuids)
+    {
+      var uuid = Uuid.Parse(sample.UUID);
+      var ourBase32 = Base32Sortable.Encode(uuid);
+      var medoId26 = sample.MedoId26;
+
+      // Verify both are 26 characters
+      Assert.Equal(26, ourBase32.Length);
+      Assert.Equal(26, medoId26.Length);
+
+      // Verify our output uses only alphabet characters
+      foreach (char c in ourBase32)
+      {
+        Assert.Contains(c, "0123456789bcdefghjkmnpqrstuvwxyz");
       }
     }
   }
