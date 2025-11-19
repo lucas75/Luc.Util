@@ -28,9 +28,6 @@ public class BaseEncodingRoundTripTests
             }
         }
     }
-
-    // removed: GetMethods. Use the InvokeEncode/InvokeDecode helpers instead which find the proper method internally.
-
     
     [Fact]
     public void Base32_AllSizes_RoundTrip()

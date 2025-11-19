@@ -14,7 +14,7 @@ public static class BaseEncodingUtils
             .Single()!
             .MakeGenericMethod(instance.GetType());
 
-        var result = encodeMethod.Invoke(null, new object[] { instance }) ?? throw new InvalidOperationException("Encode returned null");
+        var result = encodeMethod.Invoke(null, [instance]) ?? throw new InvalidOperationException("Encode returned null");
         return (string)result;
     }
 
@@ -29,14 +29,14 @@ public static class BaseEncodingUtils
         if (twoParam is not null)
         {
             var decodeMethod = twoParam.MakeGenericMethod(type);
-            return decodeMethod.Invoke(null, new object[] { encoded, bitLength })!;
+            return decodeMethod.Invoke(null, [encoded, bitLength])!;
         }
 
         var oneParam = decodeCandidates.FirstOrDefault(m => m.GetParameters().Length == 1 && m.GetParameters()[0].ParameterType == typeof(string));
         if (oneParam is not null)
         {
             var decodeMethod = oneParam.MakeGenericMethod(type);
-            return decodeMethod.Invoke(null, new object[] { encoded })!;
+            return decodeMethod.Invoke(null, [encoded])!;
         }
 
         throw new InvalidOperationException("No suitable Decode method found for encoding class.");
@@ -53,7 +53,7 @@ public static class BaseEncodingUtils
         if (oneParam is not null)
         {
             var method = oneParam.MakeGenericMethod(type);
-            return method.Invoke(null, new object[] { encoded })!;
+            return method.Invoke(null, [encoded])!;
         }
 
         // Fallback to a two-parameter overload where we compute the bit-length from the instance type
@@ -62,7 +62,7 @@ public static class BaseEncodingUtils
         {
             int bitLength = System.Runtime.InteropServices.Marshal.SizeOf(instance.GetType()) * 8;
             var method = twoParam.MakeGenericMethod(type);
-            return method.Invoke(null, new object[] { encoded, bitLength })!;
+            return method.Invoke(null, [encoded, bitLength])!;
         }
 
         throw new InvalidOperationException("No suitable Decode method found for encoding class.");
