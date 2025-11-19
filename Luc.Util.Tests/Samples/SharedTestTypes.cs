@@ -1,8 +1,6 @@
 // <generated>Do not alter this class</generated>
-using System;
 using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
-using Luc.Util;
+using System.Runtime.CompilerServices;  
 using Luc.Util.Encoding;
 
 namespace Luc.Util.Tests.Samples;
@@ -10,9 +8,11 @@ namespace Luc.Util.Tests.Samples;
 public static class SharedTestTypes
 {
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S01 : IEncodingInput, IEncodingOutput<S01>
+  public readonly struct S01 : IEncodingInput, IEncodingOutput<S01>
   {
-    byte B0;
+    private readonly byte B0=0;
+
+    public S01(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -26,9 +26,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S02 : IEncodingInput, IEncodingOutput<S02>
+  public readonly struct S02 : IEncodingInput, IEncodingOutput<S02>
   {
-    byte B0,B1;
+    private readonly byte B0=0,B1=0;
+
+    public S02(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -42,9 +44,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S03 : IEncodingInput, IEncodingOutput<S03>
+  public readonly struct S03 : IEncodingInput, IEncodingOutput<S03>
   {
-    byte B0,B1,B2;
+    private readonly byte B0=0,B1=0,B2=0;
+
+    public S03(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -58,9 +62,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S04 : IEncodingInput, IEncodingOutput<S04>
+  public readonly struct S04 : IEncodingInput, IEncodingOutput<S04>
   {
-    byte B0,B1,B2,B3;
+    private readonly byte B0=0,B1=0,B2=0,B3=0;
+
+    public S04(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -74,9 +80,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S05 : IEncodingInput, IEncodingOutput<S05>
+  public readonly struct S05 : IEncodingInput, IEncodingOutput<S05>
   {
-    byte B0,B1,B2,B3,B4;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0;
+
+    public S05(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -90,9 +98,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S06 : IEncodingInput, IEncodingOutput<S06>
+  public readonly struct S06 : IEncodingInput, IEncodingOutput<S06>
   {
-    byte B0,B1,B2,B3,B4,B5;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0;
+
+    public S06(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -106,9 +116,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S07 : IEncodingInput, IEncodingOutput<S07>
+  public readonly struct S07 : IEncodingInput, IEncodingOutput<S07>
   {
-    byte B0,B1,B2,B3,B4,B5,B6;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0;
+
+    public S07(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -122,9 +134,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S08 : IEncodingInput, IEncodingOutput<S08>
+  public readonly struct S08 : IEncodingInput, IEncodingOutput<S08>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0;
+
+    public S08(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -138,9 +152,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S09 : IEncodingInput, IEncodingOutput<S09>
+  public readonly struct S09 : IEncodingInput, IEncodingOutput<S09>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0;
+
+    public S09(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -154,9 +170,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S10 : IEncodingInput, IEncodingOutput<S10>
+  public readonly struct S10 : IEncodingInput, IEncodingOutput<S10>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0;
+
+    public S10(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -170,9 +188,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S11 : IEncodingInput, IEncodingOutput<S11>
+  public readonly struct S11 : IEncodingInput, IEncodingOutput<S11>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0;
+
+    public S11(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -186,9 +206,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S12 : IEncodingInput, IEncodingOutput<S12>
+  public readonly struct S12 : IEncodingInput, IEncodingOutput<S12>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0;
+
+    public S12(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -202,9 +224,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S13 : IEncodingInput, IEncodingOutput<S13>
+  public readonly struct S13 : IEncodingInput, IEncodingOutput<S13>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0;
+
+    public S13(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -218,9 +242,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S14 : IEncodingInput, IEncodingOutput<S14>
+  public readonly struct S14 : IEncodingInput, IEncodingOutput<S14>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0;
+
+    public S14(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -234,9 +260,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S15 : IEncodingInput, IEncodingOutput<S15>
+  public readonly struct S15 : IEncodingInput, IEncodingOutput<S15>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0;
+
+    public S15(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -250,9 +278,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S16 : IEncodingInput, IEncodingOutput<S16>
+  public readonly struct S16 : IEncodingInput, IEncodingOutput<S16>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0;
+
+    public S16(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -266,9 +296,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S17 : IEncodingInput, IEncodingOutput<S17>
+  public readonly struct S17 : IEncodingInput, IEncodingOutput<S17>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0;
+
+    public S17(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -282,9 +314,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S18 : IEncodingInput, IEncodingOutput<S18>
+  public readonly struct S18 : IEncodingInput, IEncodingOutput<S18>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0;
+
+    public S18(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -298,9 +332,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S19 : IEncodingInput, IEncodingOutput<S19>
+  public readonly struct S19 : IEncodingInput, IEncodingOutput<S19>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0;
+
+    public S19(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -314,9 +350,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S20 : IEncodingInput, IEncodingOutput<S20>
+  public readonly struct S20 : IEncodingInput, IEncodingOutput<S20>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0;
+
+    public S20(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -330,9 +368,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S21 : IEncodingInput, IEncodingOutput<S21>
+  public readonly struct S21 : IEncodingInput, IEncodingOutput<S21>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0;
+
+    public S21(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -346,9 +386,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S22 : IEncodingInput, IEncodingOutput<S22>
+  public readonly struct S22 : IEncodingInput, IEncodingOutput<S22>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0;
+
+    public S22(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -362,9 +404,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S23 : IEncodingInput, IEncodingOutput<S23>
+  public readonly struct S23 : IEncodingInput, IEncodingOutput<S23>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0;
+
+    public S23(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -378,9 +422,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S24 : IEncodingInput, IEncodingOutput<S24>
+  public readonly struct S24 : IEncodingInput, IEncodingOutput<S24>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0;
+
+    public S24(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -394,9 +440,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S25 : IEncodingInput, IEncodingOutput<S25>
+  public readonly struct S25 : IEncodingInput, IEncodingOutput<S25>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0;
+
+    public S25(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -410,9 +458,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S26 : IEncodingInput, IEncodingOutput<S26>
+  public readonly struct S26 : IEncodingInput, IEncodingOutput<S26>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0;
+
+    public S26(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -426,9 +476,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S27 : IEncodingInput, IEncodingOutput<S27>
+  public readonly struct S27 : IEncodingInput, IEncodingOutput<S27>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0;
+
+    public S27(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -442,9 +494,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S28 : IEncodingInput, IEncodingOutput<S28>
+  public readonly struct S28 : IEncodingInput, IEncodingOutput<S28>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0;
+
+    public S28(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -458,9 +512,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S29 : IEncodingInput, IEncodingOutput<S29>
+  public readonly struct S29 : IEncodingInput, IEncodingOutput<S29>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0;
+
+    public S29(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -474,9 +530,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S30 : IEncodingInput, IEncodingOutput<S30>
+  public readonly struct S30 : IEncodingInput, IEncodingOutput<S30>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0;
+
+    public S30(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -490,9 +548,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S31 : IEncodingInput, IEncodingOutput<S31>
+  public readonly struct S31 : IEncodingInput, IEncodingOutput<S31>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0;
+
+    public S31(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -506,9 +566,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S32 : IEncodingInput, IEncodingOutput<S32>
+  public readonly struct S32 : IEncodingInput, IEncodingOutput<S32>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0;
+
+    public S32(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -522,9 +584,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S33 : IEncodingInput, IEncodingOutput<S33>
+  public readonly struct S33 : IEncodingInput, IEncodingOutput<S33>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0;
+
+    public S33(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -538,9 +602,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S34 : IEncodingInput, IEncodingOutput<S34>
+  public readonly struct S34 : IEncodingInput, IEncodingOutput<S34>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0;
+
+    public S34(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -554,9 +620,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S35 : IEncodingInput, IEncodingOutput<S35>
+  public readonly struct S35 : IEncodingInput, IEncodingOutput<S35>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0;
+
+    public S35(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -570,9 +638,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S36 : IEncodingInput, IEncodingOutput<S36>
+  public readonly struct S36 : IEncodingInput, IEncodingOutput<S36>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0;
+
+    public S36(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -586,9 +656,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S37 : IEncodingInput, IEncodingOutput<S37>
+  public readonly struct S37 : IEncodingInput, IEncodingOutput<S37>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0;
+
+    public S37(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -602,9 +674,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S38 : IEncodingInput, IEncodingOutput<S38>
+  public readonly struct S38 : IEncodingInput, IEncodingOutput<S38>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0;
+
+    public S38(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -618,9 +692,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S39 : IEncodingInput, IEncodingOutput<S39>
+  public readonly struct S39 : IEncodingInput, IEncodingOutput<S39>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0;
+
+    public S39(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -634,9 +710,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S40 : IEncodingInput, IEncodingOutput<S40>
+  public readonly struct S40 : IEncodingInput, IEncodingOutput<S40>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0;
+
+    public S40(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -650,9 +728,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S41 : IEncodingInput, IEncodingOutput<S41>
+  public readonly struct S41 : IEncodingInput, IEncodingOutput<S41>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0;
+
+    public S41(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -666,9 +746,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S42 : IEncodingInput, IEncodingOutput<S42>
+  public readonly struct S42 : IEncodingInput, IEncodingOutput<S42>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0;
+
+    public S42(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -682,9 +764,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S43 : IEncodingInput, IEncodingOutput<S43>
+  public readonly struct S43 : IEncodingInput, IEncodingOutput<S43>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0;
+
+    public S43(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -698,9 +782,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S44 : IEncodingInput, IEncodingOutput<S44>
+  public readonly struct S44 : IEncodingInput, IEncodingOutput<S44>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0;
+
+    public S44(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -714,9 +800,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S45 : IEncodingInput, IEncodingOutput<S45>
+  public readonly struct S45 : IEncodingInput, IEncodingOutput<S45>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0;
+
+    public S45(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -730,9 +818,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S46 : IEncodingInput, IEncodingOutput<S46>
+  public readonly struct S46 : IEncodingInput, IEncodingOutput<S46>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0;
+
+    public S46(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -746,9 +836,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S47 : IEncodingInput, IEncodingOutput<S47>
+  public readonly struct S47 : IEncodingInput, IEncodingOutput<S47>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0;
+
+    public S47(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -762,9 +854,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S48 : IEncodingInput, IEncodingOutput<S48>
+  public readonly struct S48 : IEncodingInput, IEncodingOutput<S48>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0;
+
+    public S48(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -778,9 +872,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S49 : IEncodingInput, IEncodingOutput<S49>
+  public readonly struct S49 : IEncodingInput, IEncodingOutput<S49>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0;
+
+    public S49(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -794,9 +890,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S50 : IEncodingInput, IEncodingOutput<S50>
+  public readonly struct S50 : IEncodingInput, IEncodingOutput<S50>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0;
+
+    public S50(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -810,9 +908,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S51 : IEncodingInput, IEncodingOutput<S51>
+  public readonly struct S51 : IEncodingInput, IEncodingOutput<S51>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0;
+
+    public S51(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -826,9 +926,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S52 : IEncodingInput, IEncodingOutput<S52>
+  public readonly struct S52 : IEncodingInput, IEncodingOutput<S52>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0;
+
+    public S52(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -842,9 +944,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S53 : IEncodingInput, IEncodingOutput<S53>
+  public readonly struct S53 : IEncodingInput, IEncodingOutput<S53>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0;
+
+    public S53(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -858,9 +962,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S54 : IEncodingInput, IEncodingOutput<S54>
+  public readonly struct S54 : IEncodingInput, IEncodingOutput<S54>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0;
+
+    public S54(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -874,9 +980,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S55 : IEncodingInput, IEncodingOutput<S55>
+  public readonly struct S55 : IEncodingInput, IEncodingOutput<S55>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0;
+
+    public S55(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -890,9 +998,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S56 : IEncodingInput, IEncodingOutput<S56>
+  public readonly struct S56 : IEncodingInput, IEncodingOutput<S56>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0;
+
+    public S56(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -906,9 +1016,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S57 : IEncodingInput, IEncodingOutput<S57>
+  public readonly struct S57 : IEncodingInput, IEncodingOutput<S57>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0;
+
+    public S57(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -922,9 +1034,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S58 : IEncodingInput, IEncodingOutput<S58>
+  public readonly struct S58 : IEncodingInput, IEncodingOutput<S58>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0;
+
+    public S58(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -938,9 +1052,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S59 : IEncodingInput, IEncodingOutput<S59>
+  public readonly struct S59 : IEncodingInput, IEncodingOutput<S59>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0;
+
+    public S59(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -954,9 +1070,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S60 : IEncodingInput, IEncodingOutput<S60>
+  public readonly struct S60 : IEncodingInput, IEncodingOutput<S60>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0,B59=0;
+
+    public S60(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -970,9 +1088,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S61 : IEncodingInput, IEncodingOutput<S61>
+  public readonly struct S61 : IEncodingInput, IEncodingOutput<S61>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0,B59=0,B60=0;
+
+    public S61(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -986,9 +1106,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S62 : IEncodingInput, IEncodingOutput<S62>
+  public readonly struct S62 : IEncodingInput, IEncodingOutput<S62>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0,B59=0,B60=0,B61=0;
+
+    public S62(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -1002,9 +1124,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S63 : IEncodingInput, IEncodingOutput<S63>
+  public readonly struct S63 : IEncodingInput, IEncodingOutput<S63>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61,B62;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0,B59=0,B60=0,B61=0,B62=0;
+
+    public S63(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {
@@ -1018,9 +1142,11 @@ public static class SharedTestTypes
     }
   }
   [StructLayout(LayoutKind.Sequential, Pack=1)]
-  public struct S64 : IEncodingInput, IEncodingOutput<S64>
+  public readonly struct S64 : IEncodingInput, IEncodingOutput<S64>
   {
-    byte B0,B1,B2,B3,B4,B5,B6,B7,B8,B9,B10,B11,B12,B13,B14,B15,B16,B17,B18,B19,B20,B21,B22,B23,B24,B25,B26,B27,B28,B29,B30,B31,B32,B33,B34,B35,B36,B37,B38,B39,B40,B41,B42,B43,B44,B45,B46,B47,B48,B49,B50,B51,B52,B53,B54,B55,B56,B57,B58,B59,B60,B61,B62,B63;
+    private readonly byte B0=0,B1=0,B2=0,B3=0,B4=0,B5=0,B6=0,B7=0,B8=0,B9=0,B10=0,B11=0,B12=0,B13=0,B14=0,B15=0,B16=0,B17=0,B18=0,B19=0,B20=0,B21=0,B22=0,B23=0,B24=0,B25=0,B26=0,B27=0,B28=0,B29=0,B30=0,B31=0,B32=0,B33=0,B34=0,B35=0,B36=0,B37=0,B38=0,B39=0,B40=0,B41=0,B42=0,B43=0,B44=0,B45=0,B46=0,B47=0,B48=0,B49=0,B50=0,B51=0,B52=0,B53=0,B54=0,B55=0,B56=0,B57=0,B58=0,B59=0,B60=0,B61=0,B62=0,B63=0;
+
+    public S64(){}
 
     readonly EncodingBytes IEncodingInput.EncodeToBytes()
     {

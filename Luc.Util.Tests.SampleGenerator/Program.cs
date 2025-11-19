@@ -82,16 +82,18 @@ for( int i = 1; i <= 64; i++ )
   var srcBytes = new StringBuilder();
   for( int b = 0; b < i; b++ )
   {
-    srcBytes.Append($"B{b},");
+    srcBytes.Append($"B{b}=0,");
   }
   srcBytes.Length -= 1;
 
   srcSharedTypes.AppendLine(
       $$"""
         [StructLayout(LayoutKind.Sequential, Pack=1)]
-        public struct S{{i:D2}} : IEncodingInput, IEncodingOutput<S{{i:D2}}>
+        public readonly struct S{{i:D2}} : IEncodingInput, IEncodingOutput<S{{i:D2}}>
         {
-          byte {{srcBytes}};
+          private readonly byte {{srcBytes}};
+
+          public S{{i:D2}}(){}
 
           readonly EncodingBytes IEncodingInput.EncodeToBytes()
           {
@@ -133,10 +135,8 @@ System.IO.File.WriteAllText
   "Luc.Util.Tests/Samples/SharedTestTypes.cs",
   $$"""
   // <generated>Do not alter this class</generated>
-  using System;
   using System.Runtime.InteropServices;
-  using System.Runtime.CompilerServices;
-  using Luc.Util;
+  using System.Runtime.CompilerServices;  
   using Luc.Util.Encoding;
   
   namespace Luc.Util.Tests.Samples;
