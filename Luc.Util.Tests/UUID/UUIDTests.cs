@@ -1,9 +1,8 @@
 using System;
 using Luc.Util.Tests.Samples;
 using Luc.Util;
-using Luc.Util.UUID;
+using Luc.Util.Uuid;
 using Xunit;
-using Luc.Util.Encoding;
 
 
 namespace Luc.Util.Tests;
@@ -25,7 +24,7 @@ public class UUIDTests
 
             // No need to force version/variant here; the purpose of this test is
             // to verify the UUID constructor preserves the provided bytes.
-            var uuid = new Uuid(bytes);
+            var uuid = new Uuid.UUID(bytes);
             Assert.Equal(bytes, uuid.Bytes.ToArray());
         }
     }
@@ -45,7 +44,7 @@ public class UUIDTests
             rng.NextBytes(bytes);
             var original = (byte[])bytes.Clone();
 
-            var uuid = new Uuid(bytes.AsSpan());
+            var uuid = new Uuid.UUID(bytes.AsSpan());
 
             // Mutate the source after the constructor — constructor should copy
             // so uuid.Bytes remains equal to the original contents.
@@ -70,7 +69,7 @@ public class UUIDTests
 
             var bytes = new byte[length];
             Random.Shared.NextBytes(bytes);
-            Assert.Throws<ArgumentException>(() => new Uuid(bytes));
+      Assert.Throws<ArgumentException>(() => new Uuid.UUID(bytes));
         }
     }
 
@@ -82,7 +81,7 @@ public class UUIDTests
     {
         foreach (var sample in UuidTestSamples.Samples)
         {
-            var uuid = Uuid.Parse(sample.Canonical);
+            var uuid = Uuid.UUID.Parse(sample.Canonical);
             Assert.Equal(sample.Canonical, uuid.ToString());
         }
     }
@@ -105,8 +104,8 @@ public class UUIDTests
 
         // Equality compares raw bytes; no need to set version/variant for this test.
 
-        var uuid1 = new Uuid(bytes);
-        var uuid2 = new Uuid(bytes);
+        var uuid1 = new Uuid.UUID(bytes);
+        var uuid2 = new Uuid.UUID(bytes);
         Assert.Equal(uuid1, uuid2);
         Assert.True(uuid1 == uuid2);
         Assert.False(uuid1 != uuid2);
@@ -127,8 +126,8 @@ public class UUIDTests
         
         // The comparison relies on byte ordering. No need to set versions/variants.
         
-        var uuid1 = new Uuid(bytes1);
-        var uuid2 = new Uuid(bytes2);
+        var uuid1 = new Uuid.UUID(bytes1);
+        var uuid2 = new Uuid.UUID(bytes2);
         int comparison = uuid1.CompareTo(uuid2);
         Assert.Equal(comparison < 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) < 0);
         Assert.Equal(comparison > 0, uuid1.Bytes.SequenceCompareTo(uuid2.Bytes) > 0);
@@ -140,7 +139,7 @@ public class UUIDTests
     [Fact]
     public void UUID_NewV4_ShouldCreateValidV4()
     {
-        var uuid = Uuid.NewV4();
+        var uuid = Uuid.UUID.NewV4();
         var bytes = uuid.Bytes.ToArray();
         
         // Check version bits (should be 0x4X)
@@ -155,17 +154,17 @@ public class UUIDTests
     [Fact]
     public void UUID_GetVersion_ShouldReturnCorrectValue()
     {
-        var uuidV4 = Uuid.NewV4();
+        var uuidV4 = Uuid.UUID.NewV4();
         Assert.Equal(4, uuidV4.GetVersion());
 
-        var uuidV7 = Uuid.NewV7();
+        var uuidV7 = Uuid.UUID.NewV7();
         Assert.Equal(7, uuidV7.GetVersion());
 
         // Create custom uuid with version 1 in byte[6]
         byte[] bytes = new byte[16];
         Random.Shared.NextBytes(bytes);
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x10); // version 1
-        var uuidV1 = new Uuid(bytes);
+        var uuidV1 = new Uuid.UUID(bytes);
         Assert.Equal(1, uuidV1.GetVersion());
     }
 
@@ -179,7 +178,7 @@ public class UUIDTests
         {
             // Version nibble is the first char of the 3rd hyphen-delimited section.
             Assert.Equal('4', sample.Canonical[14]);
-            var uuid = Uuid.Parse(sample.Canonical);
+            var uuid = Uuid.UUID.Parse(sample.Canonical);
             Assert.Equal(4, uuid.GetVersion());
         }
     }
@@ -197,7 +196,7 @@ public class UUIDTests
             var variantNibble = sample.Canonical[19];
             Assert.Contains(variantNibble, "abc");
 
-            var uuid = Uuid.Parse(sample.Canonical);
+            var uuid = Uuid.UUID.Parse(sample.Canonical);
             Assert.Equal(sample.Canonical, uuid.ToString());
         }
     }
@@ -210,8 +209,8 @@ public class UUIDTests
     {
         foreach (var bad in UuidTestSamples.SamplesWithBrokenCanonical)
         {
-            Assert.False(Uuid.TryParse(bad, out _));
-            Assert.Throws<FormatException>(() => Uuid.Parse(bad));
+      Assert.False(Uuid.UUID.TryParse(bad, out _));
+      Assert.Throws<FormatException>(() => Uuid.UUID.Parse(bad));
         }
     }
 
@@ -224,7 +223,7 @@ public class UUIDTests
         foreach (var hex in UuidTestSamples.SamplesWithBrokenHex)
         {
             Assert.Throws<FormatException>(() => Convert.FromHexString(hex));
-            Assert.False(Uuid.TryParse(hex, out _));
+      Assert.False(Uuid.UUID.TryParse(hex, out _));
         }
     }
 
@@ -234,19 +233,19 @@ public class UUIDTests
     [Fact]
     public void UUID_GetVersionVariant_ShouldReturnEnum()
     {
-        var uuidV4 = Uuid.NewV4();
-        Assert.Equal(Uuid.UuidVariant.Rfc4122, uuidV4.GetVariant());
+        var uuidV4 = Uuid.UUID.NewV4();
+        Assert.Equal(UUID.UuidVariant.Rfc4122, uuidV4.GetVariant());
 
-        var uuidV7 = Uuid.NewV7();
-        Assert.Equal(Uuid.UuidVariant.Rfc4122, uuidV7.GetVariant());
+        var uuidV7 = Uuid.UUID.NewV7();
+        Assert.Equal(UUID.UuidVariant.Rfc4122, uuidV7.GetVariant());
 
         // Manually create a UUID with variant bits 0xC0 (Microsoft variant needs 0b1110xxxx = 0xE0)
         byte[] bytes = new byte[16];
         Random.Shared.NextBytes(bytes);
         bytes[6] = (byte)((bytes[6] & 0x0F) | 0x40);
         bytes[8] = (byte)((bytes[8] & 0x1F) | 0xC0);
-        var custom = new Uuid(bytes);
-        Assert.Equal(Uuid.UuidVariant.Microsoft, custom.GetVariant());
+        var custom = new Uuid.UUID(bytes);
+        Assert.Equal(UUID.UuidVariant.Microsoft, custom.GetVariant());
     }
 
     /// <summary>
@@ -255,7 +254,7 @@ public class UUIDTests
     [Fact]
     public void UUID_NewV7_ShouldCreateValidV7()
     {
-        var uuid = Uuid.NewV7();
+        var uuid = Uuid.UUID.NewV7();
         var bytes = uuid.Bytes.ToArray();
         
         // Check version bits (should be 0x7X)
@@ -271,7 +270,7 @@ public class UUIDTests
     public void UUID_V7GetTimestamp_ShouldReturnValidTimestamp()
     {
         var before = DateTimeOffset.UtcNow;
-        var uuid = Uuid.NewV7();
+        var uuid = Uuid.UUID.NewV7();
         var after = DateTimeOffset.UtcNow;
         
         var timestamp = uuid.V7GetTimestamp();
@@ -280,23 +279,27 @@ public class UUIDTests
         Assert.True(timestamp <= after.AddMilliseconds(1));
     }
 
+    [Fact]
+    public void UUID_Base36()
+    {
+        for( int i =0; i < 2000; i++ ) 
+        {
+            var uuid_original = UUID.NewV7();
+            var uuid_str = uuid_original.ToBase36();
+            var uuid_parsed = UUID.FromBase36(uuid_str);
+            Assert.Equal(uuid_original, uuid_parsed);            
+        }
+    }
 
-
-    /// <summary>
-    /// Tests differences between custom encodings and Medo's Id26 (Base31 removed).
-    /// </summary>
-    
-    // This alphabet comparison moved to `BaseEncodingCornerCasesTests`.
-
-
-
-    // BaseXX string/roundtrip tests are covered by the test suite in
-    // `Luc.Util.Tests.Encoding.BaseEncodingRoundTripTests` and
-    // `Luc.Util.Tests.Encoding.BaseEncodingCornerCasesTests` which exercise
-    // all sizes including the 16-byte UUID size (equivalent to S16).
-    //
-    // We keep only tests here that check UUID-specific integrations or compare
-    // with external Medo id formats (MedoId22/25/26).  The general encode/decode
-    // and length behavior is validated by the shared tests in `Encoding`.
-
+    [Fact]
+    public void UUID_Base34()
+    {
+        for( int i =0; i < 2000; i++ ) 
+        {
+            var uuid_original = UUID.NewV7();
+            var uuid_str = uuid_original.ToBase34();
+            var uuid_parsed = UUID.FromBase34(uuid_str);
+            Assert.Equal(uuid_original, uuid_parsed);            
+        }
+    }
 }
